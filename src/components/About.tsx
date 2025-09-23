@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, GraduationCap, Award, Code } from "lucide-react";
+import { MapPin, GraduationCap, Award, Code, Brain, Rocket, Target } from "lucide-react";
+import profileImage from "@/assets/shiva-profile.jpg";
 
 const skills = [
   "Python", "TensorFlow", "PyTorch", "JavaScript", "TypeScript", 
@@ -39,9 +40,45 @@ export function About() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
-            {/* Bio Section */}
-            <div className="space-y-6">
+          <div className="grid lg:grid-cols-3 gap-12 mb-16">
+            {/* Profile Image Section */}
+            <div className="lg:col-span-1 flex justify-center">
+              <div className="relative group">
+                {/* Animated background glow */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary via-primary-glow to-primary rounded-3xl blur-xl opacity-20 group-hover:opacity-40 animate-pulse transition-all duration-700"></div>
+                
+                {/* Profile container */}
+                <div className="relative">
+                  <div className="w-80 h-80 rounded-2xl overflow-hidden border-2 border-primary/30 shadow-2xl">
+                    <img 
+                      src={profileImage} 
+                      alt="Shiva Ganesh Talikota - AI/ML Engineer & Entrepreneur" 
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                    {/* Tech overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-primary/10"></div>
+                  </div>
+                  
+                  {/* Floating tech indicators */}
+                  <div className="absolute -top-3 -right-3 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-mono font-semibold animate-bounce shadow-lg">
+                    <Brain className="inline w-4 h-4 mr-1" />
+                    AI/ML
+                  </div>
+                  <div className="absolute -bottom-3 -left-3 bg-surface border-2 border-primary/50 text-primary px-4 py-2 rounded-full text-sm font-mono font-semibold animate-pulse shadow-lg backdrop-blur-sm">
+                    <Rocket className="inline w-4 h-4 mr-1" />
+                    Founder
+                  </div>
+                  <div className="absolute top-1/2 -left-6 bg-accent/90 text-background px-3 py-1 rounded-full text-xs font-mono rotate-90 shadow-lg">
+                    <Target className="inline w-3 h-3 mr-1" />
+                    EdTech
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bio Content */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Bio Section */}
               <Card className="p-8 glass border-card-border glow-card">
                 <div className="flex items-center mb-6">
                   <MapPin className="h-6 w-6 text-primary mr-3" />
@@ -80,55 +117,55 @@ export function About() {
                   <p className="text-sm">Kommuri Pratap Reddy Institute of Technology (KPRIT)</p>
                 </div>
               </Card>
-            </div>
 
-            {/* Skills and Languages */}
-            <div className="space-y-6">
-              {/* Technical Skills */}
-              <Card className="p-6 glass border-card-border">
-                <div className="flex items-center mb-4">
-                  <Code className="h-6 w-6 text-primary mr-3" />
-                  <span className="text-lg font-semibold">Technical Skills</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {skills.map((skill) => (
-                    <Badge
-                      key={skill}
-                      variant="secondary"
-                      className="bg-surface-elevated text-foreground border border-border hover:border-primary transition-colors"
-                    >
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </Card>
-
-              {/* Languages */}
-              <Card className="p-6 glass border-card-border">
-                <h3 className="text-lg font-semibold mb-4">Languages</h3>
-                <div className="space-y-3">
-                  {languages.map((lang) => (
-                    <div key={lang.name} className="flex justify-between items-center">
-                      <span className="text-foreground font-medium">{lang.name}</span>
-                      <Badge variant="outline" className="text-xs">
-                        {lang.level}
+              {/* Skills and Languages */}
+              <div className="space-y-6">
+                {/* Technical Skills */}
+                <Card className="p-6 glass border-card-border">
+                  <div className="flex items-center mb-4">
+                    <Code className="h-6 w-6 text-primary mr-3" />
+                    <span className="text-lg font-semibold">Technical Skills</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {skills.map((skill) => (
+                      <Badge
+                        key={skill}
+                        variant="secondary"
+                        className="bg-surface-elevated text-foreground border border-border hover:border-primary transition-colors"
+                      >
+                        {skill}
                       </Badge>
-                    </div>
-                  ))}
-                </div>
-              </Card>
+                    ))}
+                  </div>
+                </Card>
 
-              {/* Core Competencies */}
-              <Card className="p-6 glass border-card-border">
-                <h3 className="text-lg font-semibold mb-4">Core Competencies</h3>
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <div>• AI & ML Research</div>
-                  <div>• Strategic Planning & Execution</div>
-                  <div>• Innovation & Adaptability</div>
-                  <div>• Community Building & Leadership</div>
-                  <div>• Lean & Six Sigma Methodologies</div>
-                </div>
-              </Card>
+                {/* Languages */}
+                <Card className="p-6 glass border-card-border">
+                  <h3 className="text-lg font-semibold mb-4">Languages</h3>
+                  <div className="space-y-3">
+                    {languages.map((lang) => (
+                      <div key={lang.name} className="flex justify-between items-center">
+                        <span className="text-foreground font-medium">{lang.name}</span>
+                        <Badge variant="outline" className="text-xs">
+                          {lang.level}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                {/* Core Competencies */}
+                <Card className="p-6 glass border-card-border">
+                  <h3 className="text-lg font-semibold mb-4">Core Competencies</h3>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <div>• AI & ML Research</div>
+                    <div>• Strategic Planning & Execution</div>
+                    <div>• Innovation & Adaptability</div>
+                    <div>• Community Building & Leadership</div>
+                    <div>• Lean & Six Sigma Methodologies</div>
+                  </div>
+                </Card>
+              </div>
             </div>
           </div>
 

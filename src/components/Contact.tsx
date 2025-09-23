@@ -241,13 +241,14 @@ export function Contact() {
                 >
                   Start a Conversation
                 </Button>
-                <Button
-                  variant="outline"
-                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-6 py-2"
-                  onClick={() => window.open('https://www.linkedin.com/in/shivaganesht', '_blank')}
+                <a
+                  href="https://www.linkedin.com/in/shivaganesht/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-6 py-2 rounded-md text-center inline-block"
                 >
                   Connect on LinkedIn
-                </Button>
+                </a>
               </div>
             </Card>
           </div>

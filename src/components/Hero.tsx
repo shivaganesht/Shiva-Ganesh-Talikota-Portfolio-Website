@@ -5,7 +5,11 @@ export function Hero() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      element.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "start",
+        inline: "nearest"
+      });
     }
   };
 
@@ -72,7 +76,7 @@ export function Hero() {
               <Github className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a
-              href="https://www.linkedin.com/in/shivaganesht"
+              href="https://www.linkedin.com/in/shivaganesht/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full bg-surface hover:bg-surface-elevated border border-border transition-all duration-300 hover:scale-110 hover:glow-card group"

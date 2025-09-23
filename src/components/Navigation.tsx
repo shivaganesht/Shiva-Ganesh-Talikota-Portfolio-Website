@@ -40,7 +40,11 @@ export function Navigation() {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      element.scrollIntoView({ 
+        behavior: "smooth", 
+        block: "start",
+        inline: "nearest"
+      });
     }
   };
 
@@ -50,9 +54,10 @@ export function Navigation() {
     }`}>
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-xl font-bold">
-            <span className="text-primary">SG</span>
-            <span className="text-foreground">T</span>
+          <div className="text-lg font-bold font-mono">
+            <span className="text-primary">&lt;</span>
+            <span className="text-foreground">Shiva Ganesh</span>
+            <span className="text-primary">/&gt;</span>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">

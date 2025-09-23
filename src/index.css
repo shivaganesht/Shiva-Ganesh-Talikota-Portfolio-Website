@@ -111,6 +111,26 @@ All colors MUST be HSL.
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ultra smooth scrolling for all elements */
+  * {
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced scrolling with CSS scroll snap for buttery smoothness */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
+    }
+    
+    section {
+      scroll-snap-align: start;
+      scroll-margin-top: 80px;
+    }
   }
 
   body {
