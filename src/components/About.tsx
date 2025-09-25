@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, GraduationCap, Award, Code, Brain, Rocket, Target } from "lucide-react";
 import { motion } from "framer-motion";
 import profileImage from "@/assets/shiva-profile.jpg";
+import { LiquidBlob } from "./LiquidBlob";
 
 const skills = [
   "Python", "TensorFlow", "PyTorch", "JavaScript", "TypeScript", 
@@ -28,8 +29,13 @@ const achievements = [
 export function About() {
   return (
     <section id="about" className="py-24 px-6 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-mesh opacity-10" />
+      {/* Enhanced liquid background effects */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-mesh opacity-15" />
+        <div className="absolute inset-0 bg-gradient-glow opacity-10" />
+        <LiquidBlob size="lg" position="top-right" color="secondary" className="opacity-60" />
+        <LiquidBlob size="md" position="bottom-left" color="primary" className="opacity-40" />
+      </div>
       
       <div className="container mx-auto max-w-6xl relative z-10">
         <motion.div

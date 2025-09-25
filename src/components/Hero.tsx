@@ -29,24 +29,32 @@ export function Hero() {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Liquid background effects */}
+      {/* Enhanced liquid background effects */}
       <div className="absolute inset-0">
         {prefersReducedMotion ? (
           <>
             <StaticBlob size="lg" position="top-left" color="primary" />
             <StaticBlob size="md" position="bottom-right" color="accent" />
             <StaticBlob size="sm" position="center" color="secondary" />
+            <StaticBlob size="md" position="top-right" color="primary" />
           </>
         ) : (
           <>
             <LiquidBlob size="lg" position="top-left" color="primary" />
             <LiquidBlob size="md" position="bottom-right" color="accent" />
             <LiquidBlob size="sm" position="center" color="secondary" />
+            <LiquidBlob size="md" position="top-right" color="primary" className="delay-2000" />
+            <LiquidBlob size="sm" position="bottom-left" color="accent" className="delay-4000" />
           </>
         )}
         
-        {/* Mesh gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+        {/* Enhanced mesh gradient overlays */}
+        <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
+        <div className="absolute inset-0 bg-gradient-glow opacity-15" />
+        <div className="absolute inset-0" style={{
+          background: `conic-gradient(from 45deg at 30% 70%, hsl(210 100% 60% / 0.1), hsl(220 100% 50% / 0.08), hsl(240 100% 60% / 0.12), hsl(210 100% 60% / 0.1))`,
+          animation: 'gradientShift 15s linear infinite'
+        }} />
       </div>
 
       <div className="container mx-auto px-6 text-center relative z-10">

@@ -28,9 +28,9 @@ export function LiquidBlob({
   };
 
   const colorClasses = {
-    primary: "bg-primary/20",
-    secondary: "bg-secondary/20", 
-    accent: "bg-accent/20"
+    primary: "bg-gradient-to-br from-primary/30 via-primary-glow/25 to-primary/20",
+    secondary: "bg-gradient-to-br from-secondary/25 via-accent/20 to-secondary/15", 
+    accent: "bg-gradient-to-br from-accent/35 via-primary/20 to-accent/25"
   };
 
   return (
@@ -45,11 +45,12 @@ export function LiquidBlob({
       `}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ 
-        opacity: [0.3, 0.6, 0.3],
-        scale: [0.8, 1.2, 0.8],
+        opacity: [0.4, 0.8, 0.4],
+        scale: [0.8, 1.3, 0.8],
+        rotate: [0, 180, 360],
       }}
       transition={{
-        duration: 8,
+        duration: 10,
         repeat: Infinity,
         ease: "easeInOut"
       }}

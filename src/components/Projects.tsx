@@ -2,6 +2,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, Code, Database, Brain, Blocks } from "lucide-react";
+import { motion } from "framer-motion";
+import { LiquidBlob } from "./LiquidBlob";
 
 const projects = [
   {
@@ -51,160 +53,105 @@ const projects = [
   }
 ];
 
-const allTechnologies = Array.from(
-  new Set(projects.flatMap(project => project.tech))
-).sort();
-
 export function Projects() {
   return (
-    <section id="projects" className="py-20 relative">
-      <div className="container mx-auto px-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-              Featured Projects
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A showcase of innovative solutions spanning EdTech, AI/ML, blockchain, and healthcare. 
-              Each project represents a step towards bridging technology and real-world impact.
-            </p>
-          </div>
+    <section id="projects" className="py-24 px-6 relative overflow-hidden">
+      {/* Enhanced liquid background effects */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
+        <div className="absolute inset-0 bg-gradient-glow opacity-12" />
+        <LiquidBlob size="lg" position="top-left" color="accent" className="opacity-50" />
+        <LiquidBlob size="md" position="bottom-right" color="primary" className="opacity-40" />
+        <LiquidBlob size="sm" position="center" color="secondary" className="opacity-35" />
+      </div>
+      
+      <div className="container mx-auto max-w-6xl relative z-10">
+        <motion.h2 
+          className="text-3xl md:text-4xl font-bold text-center mb-16 bg-gradient-primary bg-clip-text text-transparent"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          Featured Projects
+        </motion.h2>
 
-          {/* Technology Filter */}
-          <div className="mb-12">
-            <h3 className="text-sm font-semibold text-muted-foreground mb-4 uppercase tracking-wide">
-              Technologies Used
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {allTechnologies.map((tech) => (
-                <Badge
-                  key={tech}
-                  variant="outline"
-                  className="bg-surface border-border hover:border-primary hover:bg-primary/10 transition-all duration-300"
-                >
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          {/* Projects Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-12">
-            {projects.map((project, index) => {
-              const IconComponent = project.icon;
-              return (
-                <Card
-                  key={project.title}
-                  className="p-8 glass border-card-border hover:glow-card transition-all duration-500 group hover:scale-[1.02]"
-                >
-                  {/* Project Header */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-                        <IconComponent className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                          {project.title}
-                        </h3>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <Badge variant="secondary" className="text-xs">
-                            {project.category}
-                          </Badge>
-                          <Badge
-                            variant="outline"
-                            className={`text-xs ${
-                              project.status === "Active Development"
-                                ? "border-green-500 text-green-500"
-                                : project.status === "Prototype"
-                                ? "border-yellow-500 text-yellow-500"
-                                : "border-blue-500 text-blue-500"
-                            }`}
-                          >
-                            {project.status}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -8, scale: 1.02 }}
+            >
+            <Card className="glass-card border-card-border h-full group relative overflow-hidden">
+              {/* Liquid glass shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-animated opacity-5 group-hover:opacity-10 transition-opacity duration-500" />
+              
+              <div className="relative z-10 p-6 h-full flex flex-col">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-3 rounded-xl glass border border-primary/20">
+                    <project.icon className="h-6 w-6 text-primary" />
                   </div>
-
-                  {/* Project Description */}
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {project.description}
-                  </p>
-
-                  {/* Highlights */}
-                  <div className="mb-6">
-                    <div className="flex flex-wrap gap-2">
-                      {project.highlights.map((highlight) => (
-                        <span
-                          key={highlight}
-                          className="px-3 py-1 bg-surface-elevated text-primary text-sm rounded-full border border-border"
-                        >
-                          {highlight}
-                        </span>
-                      ))}
-                    </div>
+                  <Badge variant="secondary" className="glass text-xs">
+                    {project.status}
+                  </Badge>
+                </div>
+                
+                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">
+                  {project.title}
+                </h3>
+                
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed flex-grow">
+                  {project.description}
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.slice(0, 3).map((tech) => (
+                      <Badge
+                        key={tech}
+                        variant="outline"
+                        className="glass-card text-xs border-primary/20"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
+                    {project.tech.length > 3 && (
+                      <Badge variant="outline" className="text-xs">
+                        +{project.tech.length - 3}
+                      </Badge>
+                    )}
                   </div>
-
-                  {/* Technologies */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-muted-foreground mb-3">
-                      Built with
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="secondary"
-                          className="bg-surface text-foreground border border-border"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
+                  
+                  <div className="flex gap-2">
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button
+                        size="sm"
+                        className="glass-button flex-1 text-xs"
+                      >
+                        <Github className="h-3 w-3 mr-1" />
+                        Code
+                      </Button>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="glass border-primary/30 text-xs"
+                      >
+                        <ExternalLink className="h-3 w-3 mr-1" />
+                        Live
+                      </Button>
+                    </motion.div>
                   </div>
-
-                  {/* Project Actions */}
-                  <div className="flex space-x-3">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-                    >
-                      <Github className="h-4 w-4 mr-2" />
-                      Code
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Learn More
-                    </Button>
-                  </div>
-                </Card>
-              );
-            })}
-          </div>
-
-          {/* View All Projects CTA */}
-          <div className="text-center">
-            <Card className="p-8 glass border-card-border inline-block">
-              <h3 className="text-xl font-semibold mb-4">Explore More Projects</h3>
-              <p className="text-muted-foreground mb-6 max-w-md">
-                Discover additional projects, contributions, and experiments on my GitHub profile.
-              </p>
-              <Button
-                className="bg-primary hover:bg-primary-glow text-primary-foreground px-6 py-2 glow-primary transition-all duration-300 hover:scale-105"
-              >
-                <Github className="h-4 w-4 mr-2" />
-                View GitHub Profile
-              </Button>
+                </div>
+              </div>
             </Card>
-          </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
