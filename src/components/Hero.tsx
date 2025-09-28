@@ -59,9 +59,9 @@ export function Hero() {
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          {/* Greeting with motion */}
+          {/* Greeting with motion - ADDED pt-24 FOR VERTICAL SHIFT */}
           <motion.div 
-            className="mb-6"
+            className="mb-6 pt-24 md:pt-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -96,21 +96,33 @@ export function Hero() {
             Building the future of education through cutting-edge technology.
           </motion.p>
 
-          {/* CTA Buttons with liquid glass effect */}
+          {/* CTA Buttons with liquid glass effect - UPDATED STYLES */}
           <motion.div 
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           >
+            {/* View My Work Button - Removed unnecessary glass-button class for custom styling */}
             <motion.a
               href="#projects"
-              className="glass-button px-10 py-4 rounded-full font-semibold text-primary-foreground text-lg shadow-2xl"
+              className="relative inline-flex items-center justify-center gap-2 whitespace-nowrap px-10 py-4 rounded-[24px] font-semibold text-primary-foreground text-lg shadow-2xl overflow-hidden cursor-pointer"
+              style={{
+                background: `linear-gradient(135deg, hsl(var(--primary) / 0.9), hsl(var(--primary-glow) / 1.0))`,
+                border: '2px solid hsl(var(--primary) / 0.7)', // Bevel border
+                boxShadow: `
+                  inset 0 2px 4px hsl(var(--primary-foreground) / 0.4), 
+                  0 10px 40px hsl(var(--primary) / 0.5),
+                  0 0 0 1px hsl(var(--primary) / 0.1)
+                `,
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                transform: 'translateY(0)'
+              }}
               whileHover={{ 
                 scale: 1.08, 
                 y: -4,
-                boxShadow: "0 20px 60px hsl(var(--primary) / 0.4)",
-                borderRadius: "20px"
+                boxShadow: "0 20px 60px hsl(var(--primary) / 0.6)",
+                borderRadius: "30px" // Slight organic change on hover
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -134,17 +146,41 @@ export function Hero() {
                 });
               }}
             >
+              {/* Inner shimmer layer */}
+              <motion.div
+                className="absolute inset-0 bg-white/20"
+                initial={{ x: '-100%' }}
+                animate={{ x: '100%' }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'linear', repeatDelay: 5 }}
+                style={{ clipPath: 'polygon(0% 0%, 5% 0%, 20% 100%, 15% 100%)' }}
+              />
               ✨ View My Work
             </motion.a>
             
+            {/* Get in Touch Button - Enhanced glass style */}
             <motion.a
               href="#contact"
-              className="glass border-2 border-primary/40 px-10 py-4 rounded-full font-semibold text-foreground hover:bg-primary/15 backdrop-blur-60"
+              className="relative inline-flex items-center justify-center gap-2 whitespace-nowrap px-10 py-4 rounded-[24px] font-semibold text-foreground overflow-hidden cursor-pointer"
+              style={{
+                background: `linear-gradient(145deg, hsl(var(--background) / 0.5), hsl(var(--surface) / 0.3))`,
+                border: '1px solid hsl(var(--accent) / 0.4)',
+                backdropFilter: 'blur(50px) saturate(180%)',
+                boxShadow: `
+                  inset 0 1px 2px hsl(var(--foreground) / 0.1),
+                  0 8px 30px hsl(var(--background) / 0.4),
+                  0 2px 16px hsl(var(--accent) / 0.2)
+                `,
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                transform: 'translateY(0)'
+              }}
               whileHover={{ 
                 scale: 1.08, 
                 y: -4,
-                borderRadius: "20px",
-                boxShadow: "0 15px 40px hsl(var(--accent) / 0.3)"
+                borderRadius: "30px",
+                boxShadow: `
+                  inset 0 1px 2px hsl(var(--foreground) / 0.15),
+                  0 15px 40px hsl(var(--accent) / 0.4)
+                `
               }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -156,7 +192,9 @@ export function Hero() {
                 });
               }}
             >
-              🚀 Get in Touch
+              <span className="relative z-10">
+                🚀 Get in Touch
+              </span>
             </motion.a>
           </motion.div>
 
