@@ -547,6 +547,17 @@ All colors MUST be HSL.
     75% { background-position: 50% 100%; }
   }
 
+  /* Shimmer animation */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Enhanced gradient radial utility */
+  .bg-gradient-radial {
+    background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+  }
+
   /* Reduced motion support */
   @media (prefers-reduced-motion: reduce) {
     .blob {

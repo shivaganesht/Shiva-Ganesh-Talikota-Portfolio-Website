@@ -38,7 +38,7 @@ const organicShapes = [
 ];
 
 export interface LiquidButtonProps
-  extends Omit<HTMLMotionProps<"button">, "ref">,
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof liquidButtonVariants> {
   asChild?: boolean;
   organic?: boolean;
@@ -50,9 +50,7 @@ const LiquidButton = React.forwardRef<HTMLButtonElement, LiquidButtonProps>(
     const [hoverShape, setHoverShape] = React.useState(0);
     const [clicked, setClicked] = React.useState(false);
     
-    const Comp = asChild ? Slot : motion.button;
-    
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       setClicked(true);
       setTimeout(() => setClicked(false), 600);
       if (easterEgg) {
@@ -65,18 +63,34 @@ const LiquidButton = React.forwardRef<HTMLButtonElement, LiquidButtonProps>(
           document.documentElement.style.removeProperty('--accent');
         }, 2000);
       }
+      if (props.onClick) {
+        props.onClick(e);
+      }
     };
 
-    const organicStyle = organic ? {
+    const organicStyle: React.CSSProperties = organic ? {
       borderRadius: organicShapes[hoverShape % organicShapes.length],
       transition: "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
     } : {};
 
+    if (asChild) {
+      return (
+        <Slot
+          className={cn(liquidButtonVariants({ variant, size, className }))}
+          style={organicStyle}
+          onMouseEnter={() => setHoverShape(prev => prev + 1)}
+          onClick={handleClick}
+        >
+          {children as React.ReactElement}
+        </Slot>
+      );
+    }
+
     return (
-      <Comp
+      <motion.button
         className={cn(liquidButtonVariants({ variant, size, className }))}
         ref={ref}
-        style={organicStyle as any}
+        style={organicStyle}
         onMouseEnter={() => setHoverShape(prev => prev + 1)}
         onClick={handleClick}
         whileHover={organic ? { 
@@ -85,7 +99,7 @@ const LiquidButton = React.forwardRef<HTMLButtonElement, LiquidButtonProps>(
         } : { scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
-        {...props}
+        {...(props as any)}
       >
         {/* Liquid shimmer effect */}
         <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300">
@@ -120,8 +134,8 @@ const LiquidButton = React.forwardRef<HTMLButtonElement, LiquidButtonProps>(
           </div>
         )}
         
-        <span className="relative z-10">{children}</span>
-      </Comp>
+        <span className="relative z-10">{children as React.ReactNode}</span>
+      </motion.button>
     );
   }
 );

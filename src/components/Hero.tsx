@@ -69,75 +69,95 @@ export function Hero() {
             <span className="text-primary font-mono text-lg">Hello, I'm</span>
           </motion.div>
 
-          {/* Main title with stagger animation */}
-          <motion.h1 
-            className="hero-title mb-6"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          >
-            Shiva Ganesh Talikota
-          </motion.h1>
+        <motion.h1 
+          className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 max-w-4xl mx-auto liquid-text"
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+          style={{
+            filter: "drop-shadow(0 0 40px hsl(var(--primary) / 0.4))"
+          }}
+        >
+          Shiva Ganesh Talikota
+        </motion.h1>
 
           {/* Subtitle with role */}
-          <motion.div 
-            className="hero-subtitle mb-8"
+          <motion.p 
+            className="text-xl md:text-2xl text-muted-foreground font-medium mb-8 max-w-2xl mx-auto glass-card p-6 rounded-3xl backdrop-blur-40"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+            style={{
+              background: "linear-gradient(145deg, hsl(var(--background) / 0.4), hsl(var(--surface) / 0.2))",
+              border: "1px solid hsl(var(--primary) / 0.2)"
+            }}
           >
-            <span className="text-foreground">Founder & CEO @ </span>
-            <span className="text-primary font-semibold">matriXO</span>
-            <span className="text-muted-foreground"> | EdTech • AI/ML • Innovator</span>
-          </motion.div>
-
-          {/* Tagline */}
-          <motion.p 
-            className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-          >
-            Building AI-powered solutions and communities to bridge the gap between 
-            <span className="text-primary font-medium"> academia and industry</span>
+            AI Engineer & Innovator crafting intelligent solutions for tomorrow's challenges. 
+            Building the future of education through cutting-edge technology.
           </motion.p>
 
           {/* CTA Buttons with liquid glass effect */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
+            <motion.a
+              href="#projects"
+              className="glass-button px-10 py-4 rounded-full font-semibold text-primary-foreground text-lg shadow-2xl"
+              whileHover={{ 
+                scale: 1.08, 
+                y: -4,
+                boxShadow: "0 20px 60px hsl(var(--primary) / 0.4)",
+                borderRadius: "20px"
+              }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              onClick={(e) => {
+                e.preventDefault();
+                // Easter egg: Sparkle effect
+                const sparkles = document.createElement('div');
+                sparkles.innerHTML = '✨'.repeat(10);
+                sparkles.style.position = 'fixed';
+                sparkles.style.top = '50%';
+                sparkles.style.left = '50%';
+                sparkles.style.transform = 'translate(-50%, -50%)';
+                sparkles.style.pointerEvents = 'none';
+                sparkles.style.zIndex = '1000';
+                document.body.appendChild(sparkles);
+                setTimeout(() => sparkles.remove(), 2000);
+                
+                document.getElementById('projects')?.scrollIntoView({ 
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }}
             >
-              <Button
-                size="lg"
-                onClick={() => scrollToSection("projects")}
-                className="glass-button text-primary-foreground px-8 py-3 text-lg font-medium transition-all duration-300"
-                aria-label="View my projects"
-              >
-                View Projects
-              </Button>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
+              ✨ View My Work
+            </motion.a>
+            
+            <motion.a
+              href="#contact"
+              className="glass border-2 border-primary/40 px-10 py-4 rounded-full font-semibold text-foreground hover:bg-primary/15 backdrop-blur-60"
+              whileHover={{ 
+                scale: 1.08, 
+                y: -4,
+                borderRadius: "20px",
+                boxShadow: "0 15px 40px hsl(var(--accent) / 0.3)"
+              }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('contact')?.scrollIntoView({ 
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }}
             >
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => scrollToSection("contact")}
-                className="glass border-primary/30 text-primary hover:text-primary-foreground px-8 py-3 text-lg font-medium transition-all duration-300"
-                aria-label="Contact me"
-              >
-                Contact Me
-              </Button>
-            </motion.div>
+              🚀 Get in Touch
+            </motion.a>
           </motion.div>
 
           {/* Social Links with glass morphism */}

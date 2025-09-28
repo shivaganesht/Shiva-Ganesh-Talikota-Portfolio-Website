@@ -2,7 +2,7 @@ import * as React from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface LiquidCardProps extends Omit<HTMLMotionProps<"div">, "ref"> {
+interface LiquidCardProps extends React.HTMLAttributes<HTMLDivElement> {
   organic?: boolean;
   intensity?: "subtle" | "medium" | "strong";
   hoverEffect?: boolean;
@@ -27,7 +27,7 @@ export const LiquidCard = React.forwardRef<HTMLDivElement, LiquidCardProps>(
     const [shapeIndex, setShapeIndex] = React.useState(0);
     const [isHovered, setIsHovered] = React.useState(false);
 
-    const organicStyle = organic ? {
+    const organicStyle: React.CSSProperties = organic ? {
       borderRadius: organicShapes[shapeIndex % organicShapes.length],
       transition: "all 1s cubic-bezier(0.4, 0, 0.2, 1)",
     } : {};
@@ -48,7 +48,7 @@ export const LiquidCard = React.forwardRef<HTMLDivElement, LiquidCardProps>(
           rotate: organic ? Math.random() * 2 - 1 : 0,
         } : undefined}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        {...props}
+        {...(props as any)}
       >
         {/* Enhanced liquid shimmer */}
         <div className="absolute inset-0 overflow-hidden rounded-inherit">
