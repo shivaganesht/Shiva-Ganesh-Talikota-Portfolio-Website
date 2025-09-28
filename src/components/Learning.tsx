@@ -89,7 +89,7 @@ export function Learning() {
               {currentLearning.map((item, index) => {
                 const IconComponent = item.icon;
                 return (
-                  <Card key={item.title} className="p-6 glass border-card-border hover:glow-card transition-all duration-300">
+                  <Card key={item.title} className="p-6 glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 rounded-3xl backdrop-blur-60">
                     <div className="flex items-start space-x-4 mb-4">
                       <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
                         <IconComponent className="h-5 w-5 text-primary" />
@@ -137,7 +137,7 @@ export function Learning() {
               {researchAreas.map((area, index) => {
                 const IconComponent = area.icon;
                 return (
-                  <Card key={area.title} className="p-6 glass border-card-border hover:glow-card transition-all duration-300">
+                  <Card key={area.title} className="p-6 glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 rounded-3xl backdrop-blur-60">
                     <div className="flex items-start space-x-4">
                       <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
                         <IconComponent className="h-6 w-6 text-primary" />
@@ -170,7 +170,7 @@ export function Learning() {
           </div>
 
           {/* Certifications */}
-          <Card className="p-8 glass border-card-border">
+          <Card className="p-8 glass-card border-primary/30 rounded-3xl backdrop-blur-60">
             <div className="flex items-center mb-6">
               <Award className="h-6 w-6 text-primary mr-3" />
               <h3 className="text-2xl font-bold">Certifications & Achievements</h3>
