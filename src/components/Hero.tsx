@@ -66,6 +66,8 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
+          <br />
+          <br />
             <span className="text-primary font-mono text-lg">Hello, I'm</span>
           </motion.div>
 
