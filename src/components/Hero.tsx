@@ -68,6 +68,7 @@ export function Hero() {
           >
           <br />
           <br />
+          <br />
             <span className="text-primary font-mono text-lg">Hello, I'm</span>
           </motion.div>
 
