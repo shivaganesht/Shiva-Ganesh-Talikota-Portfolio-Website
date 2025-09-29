@@ -52,7 +52,7 @@ export function Navigation() {
   return (
     <motion.header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        isScrolled ? "glass backdrop-blur-80 border-b border-primary/20" : "backdrop-blur-20"
+        isScrolled ? "glass backdrop-blur-80" : "backdrop-blur-20"
       }`}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -66,7 +66,7 @@ export function Navigation() {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <motion.div 
-            className="text-lg font-bold font-mono liquid-text cursor-pointer glass px-4 py-2 rounded-2xl"
+            className="text-lg font-bold font-mono liquid-text cursor-pointer glass px-4 py-2"
             whileHover={{ scale: 1.05, rotate: 1 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -78,7 +78,7 @@ export function Navigation() {
             }}
           >
             <span className="text-primary animate-pulse">&lt;</span>
-            <span className="text-foreground px-2">Shiva Ganesh Talikota</span>
+            <span className="text-foreground px-2">shivaganesht</span>
             <span className="text-accent animate-pulse">/&gt;</span>
           </motion.div>
 
@@ -87,7 +87,7 @@ export function Navigation() {
               <motion.button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className={`relative text-sm font-medium transition-all duration-500 focus:outline-none glass px-3 py-2 rounded-2xl backdrop-blur-20 border-0 ${
+                className={`relative text-sm font-medium transition-all duration-500 focus:outline-none glass px-3 py-2 backdrop-blur-20 border-0 ${
                   activeSection === item.href.slice(1)
                     ? "text-primary bg-primary/10 border border-primary/30"
                     : "text-muted-foreground hover:text-primary hover:bg-primary/5"
