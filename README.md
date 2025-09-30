@@ -4,7 +4,7 @@ A modern, interactive portfolio showcasing expertise in AI/ML, full-stack develo
 
 ## 🌟 Live Demo
 
-**Portfolio URL**: [shivaganesht.github.io](https://shivaganesht.in)
+**Portfolio URL**: [shivaganesht.in](https://shivaganesht.in)
 **GitHub Profile**: [github.com/shivaganesht](https://github.com/shivaganesht)
 
 ## 👨‍💻 About
