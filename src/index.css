@@ -138,6 +138,19 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  
+  /* Prevent horizontal overflow globally */
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    overflow-x: hidden;
+    max-width: 100vw;
     background:
       /* Liquid glass mesh background */
       radial-gradient(ellipse 80% 50% at 20% 0%, hsl(210 100% 60% / 0.25), transparent 60%),

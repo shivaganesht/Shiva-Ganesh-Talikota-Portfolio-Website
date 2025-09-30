@@ -42,16 +42,56 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: "smooth", 
-        block: "start",
-        inline: "nearest"
-      });
+  // Handle mobile menu body scroll lock
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // Prevent body scroll when mobile menu is open
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      // Restore body scroll
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
     }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  const scrollToSection = (href: string) => {
+    // Close mobile menu first
     setIsMobileMenuOpen(false);
+    
+    // Wait for menu close animation before scrolling
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (element) {
+        // Get element position and offset for header
+        const headerOffset = 100;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        // Smooth scroll with proper positioning
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 200);
   };
 
   const triggerEasterEgg = () => {
@@ -362,7 +402,7 @@ export function Navigation() {
             
             {/* Mobile Menu Button */}
             <motion.button
-              className="md:hidden p-2 text-muted-foreground hover:text-primary transition-colors"
+              className="md:hidden p-2 text-muted-foreground hover:text-primary transition-colors relative z-[60]"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.9 }}
               aria-label="Toggle mobile menu"
@@ -401,7 +441,7 @@ export function Navigation() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[45] md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -410,7 +450,12 @@ export function Navigation() {
             
             {/* Mobile Menu */}
             <motion.div
-              className="fixed top-20 left-4 right-4 bg-background/95 backdrop-blur-md rounded-3xl p-6 z-50 md:hidden"
+              className="fixed top-20 left-4 right-4 bg-background/98 backdrop-blur-xl rounded-3xl p-6 z-[55] md:hidden shadow-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(20px)',
+                boxShadow: '0 25px 50px rgba(0, 0, 0, 0.4)'
+              }}
               initial={{ opacity: 0, y: -20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
