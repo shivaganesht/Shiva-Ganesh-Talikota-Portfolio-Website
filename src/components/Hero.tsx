@@ -112,7 +112,6 @@ export function Hero() {
               className="relative inline-flex items-center justify-center gap-2 whitespace-nowrap px-10 py-4 rounded-[24px] font-semibold text-primary-foreground text-lg shadow-2xl overflow-hidden cursor-pointer"
               style={{
                 background: `linear-gradient(135deg, hsl(var(--primary) / 0.9), hsl(var(--primary-glow) / 1.0))`,
-                border: '2px solid hsl(var(--primary) / 0.7)', // Bevel border
                 boxShadow: `
                   inset 0 2px 4px hsl(var(--primary-foreground) / 0.4), 
                   0 10px 40px hsl(var(--primary) / 0.5),

@@ -64,7 +64,7 @@ const certifications = [
 
 export function Learning() {
   return (
-    <section id="learning" className="py-20 relative">
+    <section id="learning" className="py-20 relative rounded-3xl mx-4 my-8">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
@@ -89,9 +89,9 @@ export function Learning() {
               {currentLearning.map((item, index) => {
                 const IconComponent = item.icon;
                 return (
-                  <Card key={item.title} className="p-6 glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 rounded-3xl backdrop-blur-60">
+                  <Card key={item.title} className="p-6 glass-card hover:shadow-lg transition-all duration-500 rounded-3xl backdrop-blur-60">
                     <div className="flex items-start space-x-4 mb-4">
-                      <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                      <div className="p-2 rounded-lg bg-primary/10">
                         <IconComponent className="h-5 w-5 text-primary" />
                       </div>
                       <div className="flex-1">
@@ -111,7 +111,7 @@ export function Learning() {
                             <span className="text-muted-foreground">Progress</span>
                             <span className="text-primary font-medium">{item.progress}%</span>
                           </div>
-                          <div className="w-full bg-surface-elevated rounded-full h-2 border border-border">
+                          <div className="w-full bg-surface-elevated rounded-full h-2">
                             <div
                               className="bg-gradient-to-r from-primary to-primary-glow h-2 rounded-full transition-all duration-500"
                               style={{ width: `${item.progress}%` }}
@@ -137,9 +137,9 @@ export function Learning() {
               {researchAreas.map((area, index) => {
                 const IconComponent = area.icon;
                 return (
-                  <Card key={area.title} className="p-6 glass-card border-primary/20 hover:border-primary/40 transition-all duration-500 rounded-3xl backdrop-blur-60">
+                  <Card key={area.title} className="p-6 glass-card hover:shadow-lg transition-all duration-500 rounded-3xl backdrop-blur-60">
                     <div className="flex items-start space-x-4">
-                      <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
+                      <div className="p-3 rounded-lg bg-primary/10">
                         <IconComponent className="h-6 w-6 text-primary" />
                       </div>
                       <div className="flex-1">
@@ -170,7 +170,7 @@ export function Learning() {
           </div>
 
           {/* Certifications */}
-          <Card className="p-8 glass-card border-primary/30 rounded-3xl backdrop-blur-60">
+          <Card className="p-8 glass-card rounded-3xl backdrop-blur-60">
             <div className="flex items-center mb-6">
               <Award className="h-6 w-6 text-primary mr-3" />
               <h3 className="text-2xl font-bold">Certifications & Achievements</h3>
@@ -180,7 +180,7 @@ export function Learning() {
               {certifications.map((cert, index) => (
                 <div
                   key={`${cert.name}-${index}`}
-                  className="p-4 bg-surface-elevated rounded-lg border border-border hover:border-primary transition-all duration-300"
+                  className="p-4 bg-surface-elevated rounded-lg hover:shadow-md transition-all duration-300"
                 >
                   <h4 className="font-semibold text-foreground mb-1">{cert.name}</h4>
                   <p className="text-sm text-muted-foreground mb-2">{cert.issuer}</p>
@@ -192,7 +192,7 @@ export function Learning() {
             </div>
 
             {/* Learning Philosophy */}
-            <div className="mt-8 p-6 bg-surface rounded-lg border border-border">
+            <div className="mt-8 p-6 bg-surface rounded-lg">
               <h4 className="font-semibold text-lg mb-3 text-primary">Learning Philosophy</h4>
               <p className="text-muted-foreground leading-relaxed">
                 "I believe in learning by doing and teaching what you learn. Technology evolves rapidly, 

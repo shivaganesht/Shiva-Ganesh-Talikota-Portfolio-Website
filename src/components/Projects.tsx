@@ -55,7 +55,7 @@ const projects = [
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 px-6 relative overflow-hidden">
+    <section id="projects" className="py-24 px-6 relative overflow-hidden rounded-3xl mx-4 my-8">
       {/* Enhanced liquid background effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
@@ -67,7 +67,7 @@ export function Projects() {
       
       <div className="container mx-auto max-w-6xl relative z-10">
         <motion.h2 
-          className="text-3xl md:text-4xl font-bold text-center mb-16 bg-gradient-primary bg-clip-text text-transparent"
+          className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -86,13 +86,13 @@ export function Projects() {
               viewport={{ once: true }}
               whileHover={{ y: -8, scale: 1.02 }}
             >
-            <Card className="glass-card border-card-border h-full group relative overflow-hidden">
+            <Card className="glass-card h-full group relative overflow-hidden">
               {/* Liquid glass shimmer effect */}
               <div className="absolute inset-0 bg-gradient-animated opacity-5 group-hover:opacity-10 transition-opacity duration-500" />
               
               <div className="relative z-10 p-6 h-full flex flex-col">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 rounded-xl glass border border-primary/20">
+                  <div className="p-3 rounded-xl glass">
                     <project.icon className="h-6 w-6 text-primary" />
                   </div>
                   <Badge variant="secondary" className="glass text-xs">
@@ -114,7 +114,7 @@ export function Projects() {
                       <Badge
                         key={tech}
                         variant="outline"
-                        className="glass-card text-xs border-primary/20"
+                        className="glass-card text-xs"
                       >
                         {tech}
                       </Badge>
@@ -140,7 +140,7 @@ export function Projects() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="glass border-primary/30 text-xs"
+                        className="glass text-xs"
                       >
                         <ExternalLink className="h-3 w-3 mr-1" />
                         Live

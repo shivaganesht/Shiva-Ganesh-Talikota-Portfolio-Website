@@ -24,7 +24,7 @@ export function Navigation() {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 150 && rect.bottom >= 150;
+          return rect.top <= 100 && rect.bottom >= 100;
         }
         return false;
       });
@@ -66,7 +66,7 @@ export function Navigation() {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <motion.div 
-            className="text-lg font-bold font-mono liquid-text cursor-pointer glass px-4 py-2"
+            className="text-lg font-bold font-mono liquid-text cursor-pointer px-4 py-2 rounded-2xl"
             whileHover={{ scale: 1.05, rotate: 1 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -87,9 +87,9 @@ export function Navigation() {
               <motion.button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className={`relative text-sm font-medium transition-all duration-500 focus:outline-none glass px-3 py-2 backdrop-blur-20 border-0 ${
+                className={`relative text-sm font-medium transition-all duration-500 focus:outline-none px-3 py-2 ${
                   activeSection === item.href.slice(1)
-                    ? "text-primary bg-primary/10 border border-primary/30"
+                    ? "text-primary bg-primary/10"
                     : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                 }`}
                 whileHover={{ 

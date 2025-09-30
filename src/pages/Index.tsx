@@ -17,7 +17,7 @@ const Index = () => {
         <Contact />
       </main>
       
-      <footer className="py-8 border-t border-border">
+      <footer className="py-8">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-muted-foreground mb-4 md:mb-0">

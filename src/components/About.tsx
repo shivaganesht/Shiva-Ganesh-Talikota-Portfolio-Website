@@ -28,7 +28,7 @@ const achievements = [
 
 export function About() {
   return (
-    <section id="about" className="py-24 px-6 relative overflow-hidden">
+    <section id="about" className="py-24 px-6 relative overflow-hidden rounded-3xl mx-4 my-8">
       {/* Enhanced liquid background effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-mesh opacity-15" />
@@ -133,7 +133,7 @@ export function About() {
                   <Badge
                     key={skill}
                     variant="secondary"
-                    className="bg-surface/50 text-foreground border border-border/50 text-xs"
+                    className="bg-surface/50 text-foreground text-xs"
                   >
                     {skill}
                   </Badge>

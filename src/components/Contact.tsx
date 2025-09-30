@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   Mail, 
-  Phone, 
   MapPin, 
   Linkedin, 
   Github, 
@@ -21,12 +20,6 @@ const contactInfo = [
     value: "shivaganesh9108@gmail.com",
     href: "mailto:shivaganesh9108@gmail.com",
     primary: true
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+91 8297024365",
-    href: "tel:+918297024365"
   },
   {
     icon: MapPin,
@@ -77,7 +70,7 @@ const collaborationAreas = [
 
 export function Contact() {
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="py-20 relative rounded-3xl mx-4 my-8">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
@@ -95,7 +88,7 @@ export function Contact() {
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
             {/* Contact Information */}
             <div className="space-y-8">
-              <Card className="p-8 glass border-card-border glow-card">
+              <Card className="p-8 glass glow-card">
                 <h3 className="text-2xl font-bold mb-6 flex items-center">
                   <MessageCircle className="h-6 w-6 text-primary mr-3" />
                   Get In Touch
@@ -108,8 +101,8 @@ export function Contact() {
                       <div key={contact.label} className="flex items-center space-x-4">
                         <div className={`p-3 rounded-lg ${
                           contact.primary 
-                            ? 'bg-primary/20 border border-primary/30' 
-                            : 'bg-surface-elevated border border-border'
+                            ? 'bg-primary/20' 
+                            : 'bg-surface-elevated'
                         }`}>
                           <IconComponent className={`h-5 w-5 ${
                             contact.primary ? 'text-primary' : 'text-muted-foreground'
@@ -136,7 +129,7 @@ export function Contact() {
                 </div>
 
                 {/* Primary CTA */}
-                <div className="mt-8 pt-6 border-t border-border">
+                <div className="mt-8 pt-6">
                   <Button
                     className="w-full bg-primary hover:bg-primary-glow text-primary-foreground py-3 text-lg font-medium glow-primary transition-all duration-300 hover:scale-105"
                     onClick={() => window.open('mailto:shivaganesh9108@gmail.com', '_blank')}
@@ -154,11 +147,11 @@ export function Contact() {
                   return (
                     <Card
                       key={social.label}
-                      className="p-6 glass border-card-border hover:glow-card transition-all duration-300 cursor-pointer group"
+                      className="p-6 glass hover:glow-card transition-all duration-300 cursor-pointer group"
                       onClick={() => window.open(social.href, '_blank')}
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="p-3 rounded-lg bg-surface-elevated border border-border group-hover:border-primary transition-colors">
+                        <div className="p-3 rounded-lg bg-surface-elevated group-hover:bg-primary/10 transition-colors">
                           <IconComponent className={`h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors ${social.color}`} />
                         </div>
                         <div>
@@ -176,7 +169,7 @@ export function Contact() {
 
             {/* Collaboration Areas */}
             <div>
-              <Card className="p-8 glass border-card-border">
+              <Card className="p-8 glass">
                 <h3 className="text-2xl font-bold mb-6">
                   Open to Collaborate On
                 </h3>
@@ -190,8 +183,8 @@ export function Contact() {
                   {collaborationAreas.map((area, index) => {
                     const IconComponent = area.icon;
                     return (
-                      <div key={area.title} className="flex items-start space-x-4 p-4 rounded-lg bg-surface-elevated border border-border hover:border-primary transition-all duration-300">
-                        <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                      <div key={area.title} className="flex items-start space-x-4 p-4 rounded-lg bg-surface-elevated hover:bg-primary/5 transition-all duration-300">
+                        <div className="p-2 rounded-lg bg-primary/10">
                           <IconComponent className="h-5 w-5 text-primary" />
                         </div>
                         <div>
@@ -204,16 +197,16 @@ export function Contact() {
                 </div>
 
                 {/* Current Focus */}
-                <div className="mt-8 p-6 bg-surface rounded-lg border border-border">
+                <div className="mt-8 p-6 bg-surface rounded-lg">
                   <h4 className="font-semibold text-lg mb-3 text-primary">Current Focus</h4>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    <Badge variant="secondary" className="bg-primary/10 text-primary border border-primary/20">
+                    <Badge variant="secondary" className="bg-primary/10 text-primary">
                       matriXO Growth
                     </Badge>
-                    <Badge variant="secondary" className="bg-primary/10 text-primary border border-primary/20">
+                    <Badge variant="secondary" className="bg-primary/10 text-primary">
                       AI Research
                     </Badge>
-                    <Badge variant="secondary" className="bg-primary/10 text-primary border border-primary/20">
+                    <Badge variant="secondary" className="bg-primary/10 text-primary">
                       CSR Summit 2025
                     </Badge>
                   </div>
@@ -228,7 +221,7 @@ export function Contact() {
 
           {/* Footer */}
           <div className="text-center">
-            <Card className="p-8 glass border-card-border inline-block">
+            <Card className="p-8 glass inline-block">
               <h3 className="text-xl font-semibold mb-4">Ready to Build Something Amazing?</h3>
               <p className="text-muted-foreground mb-6 max-w-md">
                 Whether it's a groundbreaking EdTech solution, AI research project, 
@@ -245,7 +238,7 @@ export function Contact() {
                   href="https://www.linkedin.com/in/shivaganesht/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-6 py-2 rounded-md text-center inline-block"
+                  className="text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-6 py-2 rounded-md text-center inline-block"
                 >
                   Connect on LinkedIn
                 </a>
