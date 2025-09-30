@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Zap, Rocket, Brain, Code2, Sparkles } from "lucide-react";
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -13,6 +14,9 @@ const navItems = [
 export function Navigation() {
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [easterEggActive, setEasterEggActive] = useState(false);
+  const [matrixMode, setMatrixMode] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +51,98 @@ export function Navigation() {
         inline: "nearest"
       });
     }
+    setIsMobileMenuOpen(false);
+  };
+
+  const triggerEasterEgg = () => {
+    setEasterEggActive(true);
+    // Crazy matrix effect
+    document.body.style.overflow = 'hidden';
+    const colors = ['#00ff00', '#ff0066', '#0066ff', '#ff6600', '#66ff00'];
+    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+    
+    // Create matrix rain
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.zIndex = '9999';
+    canvas.style.pointerEvents = 'none';
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    document.body.appendChild(canvas);
+    
+    const ctx = canvas.getContext('2d')!;
+    const drops: number[] = [];
+    const cols = Math.floor(canvas.width / 20);
+    
+    for (let i = 0; i < cols; i++) {
+      drops[i] = 1;
+    }
+    
+    const draw = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.font = '20px monospace';
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        ctx.fillText(char, i * 20, drops[i] * 20);
+        
+        if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    };
+    
+    const interval = setInterval(draw, 50);
+    
+    // Add glitch effect to website
+    document.documentElement.style.filter = 'hue-rotate(120deg) saturate(1.5)';
+    
+    setTimeout(() => {
+      clearInterval(interval);
+      document.body.removeChild(canvas);
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.filter = 'none';
+      setEasterEggActive(false);
+    }, 5000);
+  };
+
+  const triggerMatrixMode = () => {
+    setMatrixMode(true);
+    // Transform the entire site
+    document.body.classList.add('matrix-mode');
+    document.documentElement.style.setProperty('--primary', '0 255 0');
+    document.documentElement.style.setProperty('--background', '0 0 0');
+    document.documentElement.style.setProperty('--foreground', '0 255 0');
+    
+    // Add matrix text effect
+    const style = document.createElement('style');
+    style.textContent = `
+      .matrix-mode * {
+        font-family: 'Courier New', monospace !important;
+        text-shadow: 0 0 10px #00ff00;
+      }
+      .matrix-mode {
+        background: #000 !important;
+        color: #00ff00 !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    setTimeout(() => {
+      document.body.classList.remove('matrix-mode');
+      document.documentElement.style.removeProperty('--primary');
+      document.documentElement.style.removeProperty('--background');
+      document.documentElement.style.removeProperty('--foreground');
+      document.head.removeChild(style);
+      setMatrixMode(false);
+    }, 10000);
   };
 
   return (
@@ -71,10 +167,32 @@ export function Navigation() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             onClick={() => {
-              // Easter egg: Matrix effect
-              const colors = ['hsl(210 100% 60%)', 'hsl(195 100% 50%)', 'hsl(220 100% 50%)', 'hsl(240 100% 60%)'];
-              document.documentElement.style.setProperty('--primary', colors[Math.floor(Math.random() * colors.length)]);
-              setTimeout(() => document.documentElement.style.removeProperty('--primary'), 3000);
+              // Crazy Color Storm Easter Egg!
+              const colors = [
+                'hsl(0 100% 60%)', 'hsl(30 100% 60%)', 'hsl(60 100% 60%)', 
+                'hsl(120 100% 60%)', 'hsl(180 100% 60%)', 'hsl(240 100% 60%)', 
+                'hsl(300 100% 60%)', 'hsl(330 100% 60%)'
+              ];
+              let colorIndex = 0;
+              const interval = setInterval(() => {
+                document.documentElement.style.setProperty('--primary', colors[colorIndex % colors.length]);
+                colorIndex++;
+              }, 200);
+              
+              // Add crazy animations
+              document.body.style.transition = 'all 0.2s ease';
+              document.body.style.transform = 'scale(1.01)';
+              
+              setTimeout(() => {
+                clearInterval(interval);
+                document.documentElement.style.removeProperty('--primary');
+                document.body.style.transform = 'scale(1)';
+                document.body.style.transition = 'all 0.5s ease';
+                setTimeout(() => {
+                  document.body.style.removeProperty('transition');
+                  document.body.style.removeProperty('transform');
+                }, 500);
+              }, 3000);
             }}
           >
             <span className="text-primary animate-pulse">&lt;</span>
@@ -82,6 +200,7 @@ export function Navigation() {
             <span className="text-accent animate-pulse">/&gt;</span>
           </motion.div>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
               <motion.button
@@ -115,17 +234,132 @@ export function Navigation() {
                 )}
               </motion.button>
             ))}
+            
+            {/* Desktop Easter Egg Button */}
+            <motion.button
+              onClick={triggerMatrixMode}
+              className="relative text-xs font-mono text-muted-foreground hover:text-primary transition-all duration-300 px-2 py-1 rounded-md hover:bg-primary/5"
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
+              title="Enter the Matrix..."
+            >
+              <Code2 className="h-4 w-4" />
+            </motion.button>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.6, ease: "easeOut" }}
-          >
-            <ThemeToggle />
-          </motion.div>
+          {/* Mobile & Theme Toggle */}
+          <div className="flex items-center space-x-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.6, ease: "easeOut" }}
+            >
+              <ThemeToggle />
+            </motion.div>
+            
+            {/* Mobile Menu Button */}
+            <motion.button
+              className="md:hidden p-2 text-muted-foreground hover:text-primary transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Toggle mobile menu"
+            >
+              <AnimatePresence mode="wait">
+                {isMobileMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="h-6 w-6" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu className="h-6 w-6" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
         </div>
       </nav>
+      
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            
+            {/* Mobile Menu */}
+            <motion.div
+              className="fixed top-20 left-4 right-4 bg-background/95 backdrop-blur-md rounded-3xl p-6 z-50 md:hidden"
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+            >
+              <div className="space-y-4">
+                {navItems.map((item, index) => (
+                  <motion.button
+                    key={item.label}
+                    onClick={() => scrollToSection(item.href)}
+                    className={`w-full text-left px-4 py-3 rounded-2xl font-medium transition-all duration-300 ${
+                      activeSection === item.href.slice(1)
+                        ? "text-primary bg-primary/20"
+                        : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                    }`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2, delay: index * 0.1 }}
+                    whileHover={{ x: 10 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 rounded-full bg-primary opacity-60" />
+                      <span>{item.label}</span>
+                    </div>
+                  </motion.button>
+                ))}
+                
+                {/* Curious Easter Egg Button for Mobile */}
+                <motion.button
+                  onClick={triggerEasterEgg}
+                  className="w-full mt-6 px-4 py-3 rounded-2xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-center font-mono text-sm border-2 border-dashed border-purple-400/30 hover:border-purple-400/60 transition-all duration-300"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3, delay: 0.5 }}
+                  whileHover={{ scale: 1.02, rotate: 1 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="flex items-center justify-center space-x-2">
+                    <Sparkles className="h-4 w-4 animate-pulse" />
+                    <span className="text-purple-400">?? CURIOUS ??</span>
+                    <Sparkles className="h-4 w-4 animate-pulse" />
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    Dare to click? 😏
+                  </div>
+                </motion.button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
