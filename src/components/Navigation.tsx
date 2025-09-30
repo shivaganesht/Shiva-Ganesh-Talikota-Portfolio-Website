@@ -167,32 +167,135 @@ export function Navigation() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             onClick={() => {
-              // Crazy Color Storm Easter Egg!
+              // 🌈 EPIC COLOR STORM EASTER EGG! 🌈
+              console.log('🌈 Color Storm Activated! 🌈');
+              
               const colors = [
-                'hsl(0 100% 60%)', 'hsl(30 100% 60%)', 'hsl(60 100% 60%)', 
-                'hsl(120 100% 60%)', 'hsl(180 100% 60%)', 'hsl(240 100% 60%)', 
-                'hsl(300 100% 60%)', 'hsl(330 100% 60%)'
+                '0 100% 60%',    // Red
+                '30 100% 60%',   // Orange  
+                '60 100% 60%',   // Yellow
+                '120 100% 60%',  // Green
+                '180 100% 60%',  // Cyan
+                '240 100% 60%',  // Blue
+                '270 100% 60%',  // Purple
+                '300 100% 60%',  // Magenta
+                '330 100% 60%'   // Pink
               ];
+              
+              // Store original values
+              const originalPrimary = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+              const originalAccent = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+              
               let colorIndex = 0;
-              const interval = setInterval(() => {
-                document.documentElement.style.setProperty('--primary', colors[colorIndex % colors.length]);
+              let pulseIndex = 0;
+              
+              // Rapid color cycling
+              const colorInterval = setInterval(() => {
+                const currentColor = colors[colorIndex % colors.length];
+                const nextColor = colors[(colorIndex + 1) % colors.length];
+                
+                document.documentElement.style.setProperty('--primary', currentColor);
+                document.documentElement.style.setProperty('--accent', nextColor);
+                document.documentElement.style.setProperty('--primary-glow', currentColor);
+                
                 colorIndex++;
-              }, 200);
+              }, 150);
               
-              // Add crazy animations
-              document.body.style.transition = 'all 0.2s ease';
-              document.body.style.transform = 'scale(1.01)';
+              // Pulsing body animation
+              const pulseInterval = setInterval(() => {
+                const scale = 1 + Math.sin(pulseIndex * 0.3) * 0.02;
+                const hue = (pulseIndex * 10) % 360;
+                
+                document.body.style.transform = `scale(${scale}) rotate(${Math.sin(pulseIndex * 0.1)}deg)`;
+                document.body.style.filter = `hue-rotate(${hue}deg) saturate(1.2) brightness(1.1)`;
+                document.body.style.transition = 'all 0.1s ease-out';
+                
+                pulseIndex++;
+              }, 100);
               
+              // Explosive particle effect
+              const canvas = document.createElement('canvas');
+              canvas.style.position = 'fixed';
+              canvas.style.top = '0';
+              canvas.style.left = '0';
+              canvas.style.width = '100%';
+              canvas.style.height = '100%';
+              canvas.style.zIndex = '9999';
+              canvas.style.pointerEvents = 'none';
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
+              document.body.appendChild(canvas);
+              
+              const ctx = canvas.getContext('2d')!;
+              const particles: Array<{x: number, y: number, vx: number, vy: number, hue: number, life: number}> = [];
+              
+              // Create particles from center
+              for (let i = 0; i < 100; i++) {
+                particles.push({
+                  x: canvas.width / 2,
+                  y: canvas.height / 2,
+                  vx: (Math.random() - 0.5) * 20,
+                  vy: (Math.random() - 0.5) * 20,
+                  hue: Math.random() * 360,
+                  life: 1.0
+                });
+              }
+              
+              const animateParticles = () => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach((particle, index) => {
+                  particle.x += particle.vx;
+                  particle.y += particle.vy;
+                  particle.life -= 0.02;
+                  particle.hue += 2;
+                  
+                  if (particle.life > 0) {
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.life * 8, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${particle.hue}, 100%, 60%, ${particle.life})`;
+                    ctx.fill();
+                  } else {
+                    particles.splice(index, 1);
+                  }
+                });
+                
+                if (particles.length > 0) {
+                  requestAnimationFrame(animateParticles);
+                }
+              };
+              
+              animateParticles();
+              
+              // Cleanup after 4 seconds
               setTimeout(() => {
-                clearInterval(interval);
-                document.documentElement.style.removeProperty('--primary');
-                document.body.style.transform = 'scale(1)';
-                document.body.style.transition = 'all 0.5s ease';
+                clearInterval(colorInterval);
+                clearInterval(pulseInterval);
+                
+                // Restore original values
+                document.documentElement.style.setProperty('--primary', originalPrimary);
+                document.documentElement.style.setProperty('--accent', originalAccent);
+                document.documentElement.style.removeProperty('--primary-glow');
+                
+                // Smooth restoration
+                document.body.style.transition = 'all 1s ease-out';
+                document.body.style.transform = 'scale(1) rotate(0deg)';
+                document.body.style.filter = 'none';
+                
+                // Remove canvas
+                if (canvas.parentNode) {
+                  document.body.removeChild(canvas);
+                }
+                
                 setTimeout(() => {
                   document.body.style.removeProperty('transition');
                   document.body.style.removeProperty('transform');
-                }, 500);
-              }, 3000);
+                  document.body.style.removeProperty('filter');
+                }, 1000);
+                
+                console.log('🌈 Color Storm Complete! 🌈');
+              }, 4000);
             }}
           >
             <span className="text-primary animate-pulse">&lt;</span>
