@@ -60,7 +60,12 @@ export function About() {
           >
             <div className="relative inline-block mb-8">
               <motion.div
-                className="w-64 h-64 mx-auto lg:mx-0 rounded-3xl overflow-hidden glass-card"
+                className="w-64 h-64 mx-auto lg:mx-0 rounded-3xl overflow-hidden"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                }}
                 whileHover={{ scale: 1.05, rotate: 2 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
@@ -94,8 +99,13 @@ export function About() {
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             viewport={{ once: true, margin: "-50px" }}
           >
-            <motion.div 
-              className="glass-card p-8 rounded-2xl"
+            <motion.div
+              className="p-8 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+              }}
               whileHover={{ y: -4 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
@@ -108,7 +118,12 @@ export function About() {
             </motion.div>
 
             <motion.div 
-              className="glass-card p-6 rounded-xl"
+              className="p-6 rounded-xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+              }}
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
@@ -120,7 +135,12 @@ export function About() {
             </motion.div>
 
             <motion.div 
-              className="glass-card p-6 rounded-xl"
+              className="p-6 rounded-xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+              }}
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >

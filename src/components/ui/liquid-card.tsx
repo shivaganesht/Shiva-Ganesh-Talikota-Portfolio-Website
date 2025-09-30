@@ -17,9 +17,9 @@ const organicShapes = [
 ];
 
 const intensityClasses = {
-  subtle: "glass-card border-primary/10",
-  medium: "glass-card border-primary/20", 
-  strong: "glass border-primary/30",
+  subtle: "bg-white/5 backdrop-blur-[10px] shadow-[0_8px_32px_rgba(0,0,0,0.2)]",
+  medium: "bg-white/8 backdrop-blur-[10px] shadow-[0_8px_32px_rgba(0,0,0,0.25)]", 
+  strong: "bg-white/12 backdrop-blur-[10px] shadow-[0_12px_40px_rgba(0,0,0,0.3)]",
 };
 
 export const LiquidCard = React.forwardRef<HTMLDivElement, LiquidCardProps>(

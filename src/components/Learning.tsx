@@ -89,7 +89,11 @@ export function Learning() {
               {currentLearning.map((item, index) => {
                 const IconComponent = item.icon;
                 return (
-                  <Card key={item.title} className="p-6 glass-card hover:shadow-lg transition-all duration-500 rounded-3xl backdrop-blur-60">
+                  <Card key={item.title} className="p-6 hover:shadow-lg transition-all duration-500 rounded-3xl backdrop-blur-60" style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                  }}>
                     <div className="flex items-start space-x-4 mb-4">
                       <div className="p-2 rounded-lg bg-primary/10">
                         <IconComponent className="h-5 w-5 text-primary" />
@@ -137,7 +141,11 @@ export function Learning() {
               {researchAreas.map((area, index) => {
                 const IconComponent = area.icon;
                 return (
-                  <Card key={area.title} className="p-6 glass-card hover:shadow-lg transition-all duration-500 rounded-3xl backdrop-blur-60">
+                  <Card key={area.title} className="p-6 hover:shadow-lg transition-all duration-500 rounded-3xl backdrop-blur-60" style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                  }}>
                     <div className="flex items-start space-x-4">
                       <div className="p-3 rounded-lg bg-primary/10">
                         <IconComponent className="h-6 w-6 text-primary" />
@@ -170,7 +178,11 @@ export function Learning() {
           </div>
 
           {/* Certifications */}
-          <Card className="p-8 glass-card rounded-3xl backdrop-blur-60">
+          <Card className="p-8 rounded-3xl backdrop-blur-60" style={{
+            background: 'rgba(255, 255, 255, 0.05)',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+          }}>
             <div className="flex items-center mb-6">
               <Award className="h-6 w-6 text-primary mr-3" />
               <h3 className="text-2xl font-bold">Certifications & Achievements</h3>

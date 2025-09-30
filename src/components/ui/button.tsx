@@ -12,7 +12,7 @@ const buttonVariants = cva(
       default: "glass-button text-primary-foreground rounded-2xl",
       destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-2xl",
       outline: "glass hover:bg-primary/10 rounded-2xl",
-      secondary: "glass-card text-secondary-foreground hover:bg-secondary/20 rounded-2xl",
+      secondary: "text-secondary-foreground hover:bg-secondary/20 rounded-2xl" + " bg-white/5 backdrop-blur-[10px] shadow-[0_8px_32px_rgba(0,0,0,0.2)]",
       ghost: "hover:bg-accent/10 hover:text-accent-foreground rounded-2xl",
       link: "text-primary underline-offset-4 hover:underline",
       liquid: "glass-button text-primary-foreground rounded-3xl",

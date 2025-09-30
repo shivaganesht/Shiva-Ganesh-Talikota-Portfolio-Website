@@ -196,12 +196,6 @@ All colors MUST be HSL.
       linear-gradient(145deg, hsl(var(--background) / 0.35), hsl(var(--surface) / 0.25)),
       radial-gradient(ellipse at top, hsl(var(--primary) / 0.08), transparent 70%);
     backdrop-filter: blur(80px) saturate(200%) brightness(120%) contrast(110%);
-    border: 1px solid;
-    border-image: linear-gradient(135deg,
-      hsl(var(--primary) / 0.4),
-      hsl(var(--accent) / 0.3),
-      hsl(var(--primary) / 0.2)
-    ) 1;
     border-radius: 24px;
     box-shadow:
       /* Inner glass reflection */
@@ -209,8 +203,7 @@ All colors MUST be HSL.
       inset 0 -1px 2px hsl(var(--primary) / 0.08),
       /* Outer depth and glow */
       0 8px 32px hsl(var(--background) / 0.4),
-      0 2px 16px hsl(var(--primary) / 0.15),
-      0 0 0 1px hsl(var(--primary) / 0.05);
+      0 2px 16px hsl(var(--primary) / 0.15);
     position: relative;
     overflow: hidden;
   }
@@ -233,29 +226,22 @@ All colors MUST be HSL.
   .glass-card {
     background:
       linear-gradient(145deg,
-        hsl(var(--background) / 0.25),
-        hsl(var(--surface) / 0.15)
+        hsl(var(--background) / 0.15),
+        hsl(var(--surface) / 0.08)
       ),
       radial-gradient(ellipse at center,
-        hsl(var(--primary) / 0.06),
+        hsl(var(--primary) / 0.03),
         transparent 60%
       );
     backdrop-filter: blur(60px) saturate(180%) brightness(115%) contrast(105%);
-    border: 1px solid;
-    border-image: linear-gradient(135deg,
-      hsl(var(--primary) / 0.3),
-      hsl(var(--accent) / 0.2),
-      hsl(var(--primary) / 0.15)
-    ) 1;
     border-radius: 20px;
     box-shadow:
       /* Glass reflection */
-      inset 0 1px 1px hsl(var(--foreground) / 0.12),
-      inset 0 -1px 1px hsl(var(--primary) / 0.06),
+      inset 0 1px 1px hsl(var(--foreground) / 0.08),
+      inset 0 -1px 1px hsl(var(--primary) / 0.03),
       /* Depth */
-      0 16px 48px hsl(var(--background) / 0.5),
-      0 8px 24px hsl(var(--primary) / 0.12),
-      0 0 0 1px hsl(var(--primary) / 0.04);
+      0 16px 48px hsl(var(--background) / 0.3),
+      0 8px 24px hsl(var(--primary) / 0.08);
     position: relative;
     overflow: hidden;
   }

@@ -86,7 +86,11 @@ export function Projects() {
               viewport={{ once: true }}
               whileHover={{ y: -8, scale: 1.02 }}
             >
-            <Card className="glass-card h-full group relative overflow-hidden">
+            <Card className="h-full group relative overflow-hidden" style={{
+              background: 'rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+            }}>
               {/* Liquid glass shimmer effect */}
               <div className="absolute inset-0 bg-gradient-animated opacity-5 group-hover:opacity-10 transition-opacity duration-500" />
               
@@ -114,7 +118,12 @@ export function Projects() {
                       <Badge
                         key={tech}
                         variant="secondary"
-                        className="glass-card text-xs"
+                        className="text-xs"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          backdropFilter: 'blur(10px)',
+                          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)'
+                        }}
                       >
                         {tech}
                       </Badge>

@@ -85,12 +85,13 @@ export function Hero() {
 
           {/* Subtitle with role */}
           <motion.p 
-            className="text-xl md:text-2xl text-muted-foreground font-medium mb-8 max-w-2xl mx-auto glass-card p-6 rounded-3xl backdrop-blur-40"
+            className="text-xl md:text-2xl text-muted-foreground font-medium mb-8 max-w-2xl mx-auto p-6 rounded-3xl backdrop-blur-40"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             style={{
-              background: "linear-gradient(145deg, hsl(var(--background) / 0.4), hsl(var(--surface) / 0.2))"
+              background: "linear-gradient(145deg, hsl(var(--background) / 0.4), hsl(var(--surface) / 0.2))",
+              boxShadow: "0 16px 48px hsl(var(--background) / 0.5), 0 8px 24px hsl(var(--primary) / 0.12)"
             }}
           >
             AI Engineer & Innovator crafting intelligent solutions for tomorrow's challenges. 
@@ -229,7 +230,12 @@ export function Hero() {
                 key={href}
                 href={href}
                 {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                className="p-3 rounded-full glass-card group focus:outline-none"
+                className="p-3 rounded-full group focus:outline-none"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
