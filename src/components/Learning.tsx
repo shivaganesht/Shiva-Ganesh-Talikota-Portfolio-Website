@@ -146,13 +146,13 @@ export function Learning() {
                         <div className="flex items-center justify-between mb-3">
                           <h4 className="text-xl font-semibold">{area.title}</h4>
                           <Badge
-                            variant="outline"
+                            variant="secondary"
                             className={`${
                               area.status === "Active Research"
-                                ? "border-green-500 text-green-500"
+                                ? "bg-green-500/20 text-green-500"
                                 : area.status === "Experimental"
-                                ? "border-yellow-500 text-yellow-500"
-                                : "border-blue-500 text-blue-500"
+                                ? "bg-yellow-500/20 text-yellow-500"
+                                : "bg-blue-500/20 text-blue-500"
                             }`}
                           >
                             {area.status}
@@ -184,7 +184,7 @@ export function Learning() {
                 >
                   <h4 className="font-semibold text-foreground mb-1">{cert.name}</h4>
                   <p className="text-sm text-muted-foreground mb-2">{cert.issuer}</p>
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="secondary" className="text-xs">
                     {cert.year}
                   </Badge>
                 </div>

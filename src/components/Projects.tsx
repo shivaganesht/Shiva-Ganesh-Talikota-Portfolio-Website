@@ -113,14 +113,14 @@ export function Projects() {
                     {project.tech.slice(0, 3).map((tech) => (
                       <Badge
                         key={tech}
-                        variant="outline"
+                        variant="secondary"
                         className="glass-card text-xs"
                       >
                         {tech}
                       </Badge>
                     ))}
                     {project.tech.length > 3 && (
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="secondary" className="text-xs">
                         +{project.tech.length - 3}
                       </Badge>
                     )}
@@ -138,7 +138,7 @@ export function Projects() {
                     </motion.div>
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                       <Button
-                        variant="outline"
+                        variant="secondary"
                         size="sm"
                         className="glass text-xs"
                       >

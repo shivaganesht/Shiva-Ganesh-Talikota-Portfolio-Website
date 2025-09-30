@@ -40,7 +40,7 @@ const socialLinks = [
     icon: Github,
     label: "GitHub",
     value: "View my code",
-    href: "https://github.com/shivaganesh9108",
+    href: "https://github.com/shivaganesht",
     color: "hover:text-purple-500"
   }
 ];

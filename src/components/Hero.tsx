@@ -68,7 +68,6 @@ export function Hero() {
           >
           <br />
           <br />
-          <br />
             <span className="text-primary font-mono text-lg">Hello, I'm</span>
           </motion.div>
 
@@ -91,8 +90,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             style={{
-              background: "linear-gradient(145deg, hsl(var(--background) / 0.4), hsl(var(--surface) / 0.2))",
-              border: "1px solid hsl(var(--primary) / 0.2)"
+              background: "linear-gradient(145deg, hsl(var(--background) / 0.4), hsl(var(--surface) / 0.2))"
             }}
           >
             AI Engineer & Innovator crafting intelligent solutions for tomorrow's challenges. 
@@ -209,7 +207,7 @@ export function Hero() {
           >
             {[
               { 
-                href: "https://github.com/shivaganesh9108", 
+                href: "https://github.com/shivaganesht", 
                 icon: Github, 
                 label: "GitHub Profile",
                 external: true 
@@ -231,7 +229,7 @@ export function Hero() {
                 key={href}
                 href={href}
                 {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-                className="p-3 rounded-full glass-card group focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="p-3 rounded-full glass-card group focus:outline-none"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -245,7 +243,7 @@ export function Hero() {
           {/* Scroll indicator with smooth animation */}
           <motion.button
             onClick={() => scrollToSection("about")}
-            className="mx-auto flex flex-col items-center text-muted-foreground hover:text-primary transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg p-2"
+            className="mx-auto flex flex-col items-center text-muted-foreground hover:text-primary transition-colors duration-300 focus:outline-none rounded-lg p-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
@@ -257,7 +255,7 @@ export function Hero() {
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <ArrowDown className="h-5 w-5" />
+              <ArrowDown className="h-5 w-4" />
             </motion.div>
           </motion.button>
         </div>
