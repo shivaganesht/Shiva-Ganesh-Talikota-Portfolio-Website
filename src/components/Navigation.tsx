@@ -146,7 +146,7 @@ export function Navigation() {
       document.body.appendChild(overlay);
       
       // Matrix characters
-      const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+      const matrixChars = 'shivaganesht shivaganesht';
       
       // Initialize drops
       const drops: Array<{
