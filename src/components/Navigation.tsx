@@ -95,61 +95,60 @@ export function Navigation() {
   };
 
   const triggerEasterEgg = () => {
-    console.log('🌧️ Digital Rain Activated! 🌧️');
+    console.log('🚀 ULTIMATE TECHIE STRESS DESTROYER ACTIVATED! 🚀');
     setEasterEggActive(true);
     
-    // Close mobile menu first with smooth animation
+    // Close mobile menu first
     setIsMobileMenuOpen(false);
     
-    // Smooth entrance animation
     setTimeout(() => {
-      // Store original values for restoration
+      // Store original values
       const originalBodyOverflow = document.body.style.overflow;
       const originalFilter = document.documentElement.style.filter;
       const originalTransition = document.body.style.transition;
       
-      // Create overlay container for smoother animations
+      // Create full-screen container
       const overlay = document.createElement('div');
-      overlay.style.position = 'fixed';
-      overlay.style.top = '0';
-      overlay.style.left = '0';
-      overlay.style.width = '100%';
-      overlay.style.height = '100%';
-      overlay.style.zIndex = '9999';
-      overlay.style.pointerEvents = 'none';
-      overlay.style.background = 'rgba(0, 0, 0, 0)';
-      overlay.style.transition = 'background 1s ease-out';
-      document.body.appendChild(overlay);
+      overlay.id = 'digital-rain-overlay';
       
-      // Create matrix rain canvas
+      overlay.style.cssText = `
+        position: fixed !important;
+        top: 0px !important;
+        left: 0px !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 9999 !important;
+        pointer-events: none !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        overflow: hidden !important;
+      `;
+      
+      // Create canvas
       const canvas = document.createElement('canvas');
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      canvas.style.opacity = '0';
-      canvas.style.transition = 'opacity 1.5s ease-out';
-      canvas.width = window.innerWidth * window.devicePixelRatio;
-      canvas.height = window.innerHeight * window.devicePixelRatio;
-      canvas.style.transform = `scale(${1 / window.devicePixelRatio})`;
-      canvas.style.transformOrigin = 'top left';
-      overlay.appendChild(canvas);
+      canvas.style.cssText = `
+        position: absolute !important;
+        top: 0px !important;
+        left: 0px !important;
+        width: 100% !important;
+        height: 100% !important;
+        opacity: 0 !important;
+        transition: opacity 1s ease-in !important;
+      `;
+      
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      canvas.width = vw;
+      canvas.height = vh;
       
       const ctx = canvas.getContext('2d')!;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
       
-      // Enhanced character sets for more variety
-      const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンハクスマトリクス';
-      const binaryChars = '01';
-      const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+      overlay.appendChild(canvas);
+      document.body.appendChild(overlay);
       
-      // Dynamic colors with smooth transitions
-      const baseColors = [
-        { r: 0, g: 255, b: 0 },     // Matrix green
-        { r: 0, g: 200, b: 100 },   // Dark green
-        { r: 100, g: 255, b: 150 }, // Light green
-        { r: 50, g: 150, b: 50 },   // Forest green
-      ];
+      // Matrix characters
+      const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
       
-      // Initialize drops with staggered start times
+      // Initialize drops
       const drops: Array<{
         y: number;
         speed: number;
@@ -158,185 +157,106 @@ export function Navigation() {
         trail: number[];
         color: {r: number, g: number, b: number};
         fontSize: number;
-        phase: number;
       }> = [];
       
-      const cols = Math.floor(window.innerWidth / 25);
+      const cols = Math.floor(vw / 20);
       
       for (let i = 0; i < cols; i++) {
         drops[i] = {
-          y: Math.random() * -2000, // Staggered start
+          y: Math.random() * -1000,
           speed: Math.random() * 3 + 2,
           chars: [],
           opacity: Math.random() * 0.8 + 0.2,
           trail: [],
-          color: baseColors[Math.floor(Math.random() * baseColors.length)],
-          fontSize: Math.random() * 8 + 16,
-          phase: Math.random() * Math.PI * 2
+          color: { r: 0, g: 255, b: 0 },
+          fontSize: Math.random() * 6 + 14
         };
         
-        // Generate character trail for each column
-        for (let j = 0; j < 20; j++) {
+        for (let j = 0; j < 15; j++) {
           drops[i].chars[j] = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-          drops[i].trail[j] = 1 - (j * 0.05);
+          drops[i].trail[j] = 1 - (j * 0.07);
         }
       }
       
-      // Animation variables
-      let animationTime = 0;
-      let intensityFactor = 0;
-      const maxIntensity = 1;
-      
-      // Smooth animation loop
+      // Animation loop
       const animate = () => {
-        // Gradual intensity build-up
-        if (intensityFactor < maxIntensity) {
-          intensityFactor += 0.02;
-        }
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, vw, vh);
         
-        // Dynamic background with breathing effect
-        const breathe = Math.sin(animationTime * 0.01) * 0.1 + 0.1;
-        ctx.fillStyle = `rgba(0, 0, 0, ${0.03 + breathe * intensityFactor})`;
-        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-        
-        // Draw matrix rain
         drops.forEach((drop, i) => {
-          // Update drop physics
-          drop.y += drop.speed * intensityFactor;
-          drop.phase += 0.05;
+          drop.y += drop.speed;
           
-          // Dynamic color pulsing
-          const pulse = Math.sin(animationTime * 0.02 + i * 0.1) * 0.3 + 0.7;
-          const glowIntensity = Math.sin(drop.phase) * 0.5 + 0.5;
-          
-          // Draw character trail
           for (let j = 0; j < drop.chars.length; j++) {
             const charY = drop.y - j * (drop.fontSize + 2);
             
-            if (charY > -drop.fontSize && charY < window.innerHeight + drop.fontSize) {
-              // Calculate trail opacity with smooth falloff
-              const trailOpacity = Math.max(0, drop.trail[j] - j * 0.05) * drop.opacity * pulse * intensityFactor;
+            if (charY > -drop.fontSize && charY < vh + drop.fontSize) {
+              const trailOpacity = drop.trail[j] * drop.opacity;
               
-              // Dynamic character switching for more life-like effect
-              if (Math.random() < 0.02) {
-                if (j < 3) {
-                  drop.chars[j] = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-                } else if (Math.random() < 0.3) {
-                  drop.chars[j] = binaryChars[Math.floor(Math.random() * binaryChars.length)];
-                }
+              if (Math.random() < 0.01) {
+                drop.chars[j] = matrixChars[Math.floor(Math.random() * matrixChars.length)];
               }
               
-              // Enhanced glow effect
-              const glowSize = (j === 0 ? 3 : 2) * glowIntensity;
+              ctx.shadowBlur = j === 0 ? 20 : 10;
+              ctx.shadowColor = `rgba(0, 255, 0, ${trailOpacity})`;
+              ctx.fillStyle = `rgba(0, 255, 0, ${trailOpacity})`;
+              ctx.font = `${drop.fontSize}px 'Courier New', monospace`;
+              ctx.fillText(drop.chars[j], i * 20 + 5, charY);
               
-              // Outer glow
-              for (let glow = glowSize; glow > 0; glow--) {
-                ctx.shadowBlur = glow * 5;
-                ctx.shadowColor = `rgba(${drop.color.r}, ${drop.color.g}, ${drop.color.b}, ${trailOpacity * 0.6})`;
-                ctx.fillStyle = `rgba(${drop.color.r}, ${drop.color.g}, ${drop.color.b}, ${trailOpacity * 0.3})`;
-                ctx.font = `bold ${drop.fontSize + glow}px 'Courier New', monospace`;
-                ctx.fillText(drop.chars[j], i * 25 + 5, charY);
-              }
-              
-              // Main character
-              ctx.shadowBlur = 15;
-              ctx.shadowColor = `rgba(${drop.color.r}, ${drop.color.g}, ${drop.color.b}, ${trailOpacity})`;
-              ctx.fillStyle = `rgba(${drop.color.r}, ${drop.color.g}, ${drop.color.b}, ${Math.min(1, trailOpacity * 1.5)})`;
-              ctx.font = `bold ${drop.fontSize}px 'Courier New', monospace`;
-              ctx.fillText(drop.chars[j], i * 25 + 5, charY);
-              
-              // Leading character highlight
               if (j === 0) {
                 ctx.fillStyle = `rgba(255, 255, 255, ${trailOpacity * 0.8})`;
-                ctx.fillText(drop.chars[j], i * 25 + 5, charY);
+                ctx.fillText(drop.chars[j], i * 20 + 5, charY);
               }
             }
           }
           
-          // Reset drop when it goes off screen
-          if (drop.y > window.innerHeight + 100) {
-            drop.y = Math.random() * -500 - 100;
+          if (drop.y > vh + 100) {
+            drop.y = Math.random() * -300 - 100;
             drop.speed = Math.random() * 3 + 2;
-            drop.color = baseColors[Math.floor(Math.random() * baseColors.length)];
-            drop.fontSize = Math.random() * 8 + 16;
-            
-            // Regenerate character trail
-            for (let j = 0; j < drop.chars.length; j++) {
-              drop.chars[j] = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-            }
+            drop.fontSize = Math.random() * 6 + 14;
           }
         });
-        
-        animationTime++;
       };
       
-      // Start smooth entrance
+      // Start animation
       requestAnimationFrame(() => {
-        // Smooth background fade-in
-        overlay.style.background = 'rgba(0, 0, 0, 0.95)';
         canvas.style.opacity = '1';
-        
-        // Body lock with smooth transition
-        document.body.style.transition = 'all 0.5s ease-out';
         document.body.style.overflow = 'hidden';
-        
-        // Gradual filter effects
-        setTimeout(() => {
-          document.documentElement.style.transition = 'filter 2s ease-out';
-          document.documentElement.style.filter = 'hue-rotate(120deg) saturate(1.8) contrast(1.2) brightness(0.8)';
-        }, 500);
       });
       
-      // Animation loop
       const animationLoop = () => {
         animate();
-        if (overlay.parentNode) {
+        if (document.getElementById('digital-rain-overlay')) {
           requestAnimationFrame(animationLoop);
         }
       };
       
-      // Start animation after entrance
-      setTimeout(() => {
-        animationLoop();
-      }, 200);
+      setTimeout(animationLoop, 200);
       
-      // Smooth exit sequence after 6 seconds
+      // Exit after 6 seconds
       setTimeout(() => {
-        console.log('🌧️ Digital Rain Ending - Smooth Exit 🌧️');
-        
-        // Phase 1: Fade canvas and restore filter (2 seconds)
-        canvas.style.transition = 'opacity 2s ease-out, transform 2s ease-out';
+        canvas.style.transition = 'opacity 1s ease-out';
         canvas.style.opacity = '0';
-        canvas.style.transform = `scale(${1 / window.devicePixelRatio * 1.1})`;
         
-        document.documentElement.style.transition = 'filter 2s ease-out';
-        document.documentElement.style.filter = 'hue-rotate(0deg) saturate(1) contrast(1) brightness(1)';
-        
-        // Phase 2: Fade overlay background (1 second delay)
         setTimeout(() => {
-          overlay.style.transition = 'background 1.5s ease-out';
+          overlay.style.transition = 'background 1s ease-out';
           overlay.style.background = 'rgba(0, 0, 0, 0)';
-        }, 1000);
+        }, 500);
         
-        // Phase 3: Complete cleanup (after all animations)
         setTimeout(() => {
-          // Restore original styles
           document.body.style.overflow = originalBodyOverflow;
           document.body.style.transition = originalTransition;
           document.documentElement.style.filter = originalFilter;
-          document.documentElement.style.removeProperty('transition');
           
-          // Remove overlay
           if (overlay.parentNode) {
             document.body.removeChild(overlay);
           }
           
           setEasterEggActive(false);
           console.log('🌧️ Digital Rain Complete! 🌧️');
-        }, 3500);
+        }, 2000);
       }, 6000);
       
-    }, 300); // Wait for mobile menu close animation
+    }, 300);
   };
 
   const triggerMatrixMode = () => {
