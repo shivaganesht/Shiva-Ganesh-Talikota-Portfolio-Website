@@ -60,7 +60,7 @@ const projects = [
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 px-6 relative overflow-hidden rounded-3xl mx-4 my-8">
+    <section id="projects" className="py-24 px-4 sm:px-6 relative overflow-hidden rounded-3xl mx-2 sm:mx-4 my-8">
       {/* Enhanced liquid background effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-mesh opacity-20" />
@@ -70,7 +70,7 @@ export function Projects() {
         <LiquidBlob size="sm" position="center" color="secondary" className="opacity-35" />
       </div>
       
-      <div className="container mx-auto max-w-6xl relative z-10">
+      <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 relative z-10">
         <motion.h2 
           className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground"
           initial={{ opacity: 0, y: 40 }}
@@ -81,7 +81,7 @@ export function Projects() {
           Featured Projects
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
@@ -90,30 +90,35 @@ export function Projects() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ y: -8, scale: 1.02 }}
+              className="w-full"
             >
-            <Card className="h-full group relative overflow-hidden" style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+            <div className="h-full group relative overflow-hidden rounded-xl backdrop-blur-xl border border-white/10" style={{
+              background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
             }}>
               {/* Liquid glass shimmer effect */}
               <div className="absolute inset-0 bg-gradient-animated opacity-5 group-hover:opacity-10 transition-opacity duration-500" />
               
-              <div className="relative z-10 p-6 h-full flex flex-col">
+              <div className="relative z-10 p-4 sm:p-6 h-full flex flex-col">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="p-3 rounded-xl glass">
-                    <project.icon className="h-6 w-6 text-primary" />
+                  <div className="p-2 sm:p-3 rounded-xl backdrop-blur-sm border border-white/10" style={{
+                    background: 'rgba(255, 255, 255, 0.05)'
+                  }}>
+                    <project.icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
-                  <Badge variant="secondary" className="glass text-xs">
+                  <Badge variant="secondary" className="text-xs px-2 py-1 backdrop-blur-sm border border-white/10" style={{
+                    background: 'rgba(255, 255, 255, 0.05)'
+                  }}>
                     {project.status}
                   </Badge>
                 </div>
                 
-                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-lg sm:text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300 break-words">
                   {project.title}
                 </h3>
                 
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed flex-grow">
+                <p className="text-muted-foreground text-xs sm:text-sm mb-4 leading-relaxed flex-grow break-words">
                   {project.description}
                 </p>
                 
@@ -152,7 +157,7 @@ export function Projects() {
                   </motion.div>
                 </div>
               </div>
-            </Card>
+            </div>
             </motion.div>
           ))}
         </div>

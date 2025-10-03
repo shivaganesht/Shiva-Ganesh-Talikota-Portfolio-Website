@@ -59,15 +59,13 @@ export function Hero() {
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
-          {/* Greeting with motion - ADDED pt-24 FOR VERTICAL SHIFT */}
+          {/* Greeting with motion */}
           <motion.div 
-            className="mb-6 pt-24 md:pt-12"
+            className="mb-6 pt-24 md:pt-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-          <br />
-          <br />
             <span className="text-primary font-mono text-lg">Hello, I'm</span>
           </motion.div>
 
@@ -85,13 +83,13 @@ export function Hero() {
 
           {/* Subtitle with role */}
           <motion.p 
-            className="text-xl md:text-2xl text-muted-foreground font-medium mb-8 max-w-2xl mx-auto p-6 rounded-3xl backdrop-blur-40"
+            className="text-xl md:text-1xl text-muted-foreground font-medium mb-8 max-w-1xl mx-auto p-5 rounded-3xl backdrop-blur-60"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             style={{
               background: "linear-gradient(145deg, hsl(var(--background) / 0.4), hsl(var(--surface) / 0.2))",
-              boxShadow: "0 16px 48px hsl(var(--background) / 0.5), 0 8px 24px hsl(var(--primary) / 0.12)"
+              boxShadow: "0 16px 128px hsl(var(--background) / 0.5), 0 8px 24px hsl(var(--primary) / 0.12)"
             }}
           >
             Founder at matriXO • EdTech Entrepreneur • AI/ML Enthusiast • Community Leader
@@ -100,7 +98,7 @@ export function Hero() {
 
           {/* CTA Buttons with liquid glass effect - UPDATED STYLES */}
           <motion.div 
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-14"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}

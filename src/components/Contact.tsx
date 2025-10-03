@@ -70,8 +70,8 @@ const collaborationAreas = [
 
 export function Contact() {
   return (
-    <section id="contact" className="py-24 px-6 relative rounded-3xl mx-4 my-8">
-      <div className="container mx-auto px-6">
+    <section id="contact" className="py-24 px-4 sm:px-6 relative rounded-3xl mx-2 sm:mx-4 my-8">
+      <div className="w-full mx-auto px-2 sm:px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
@@ -85,13 +85,17 @@ export function Contact() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 mb-16">
             {/* Contact Information */}
-            <div className="space-y-8">
-              <Card className="p-8 glass glow-card">
-                <h3 className="text-2xl font-bold mb-6 flex items-center">
-                  <MessageCircle className="h-6 w-6 text-primary mr-3" />
-                  Get In Touch
+            <div className="w-full space-y-6 lg:space-y-8">
+              <div className="w-full p-6 sm:p-8 rounded-2xl backdrop-blur-xl border border-white/10" style={{
+                background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+                backdropFilter: 'blur(20px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+              }}>
+                <h3 className="text-xl sm:text-2xl font-bold mb-6 flex items-center flex-wrap">
+                  <MessageCircle className="h-6 w-6 text-primary mr-3 flex-shrink-0" />
+                  <span>Get In Touch</span>
                 </h3>
                 
                 <div className="space-y-6">
@@ -99,28 +103,28 @@ export function Contact() {
                     const IconComponent = contact.icon;
                     return (
                       <div key={contact.label} className="flex items-center space-x-4">
-                        <div className={`p-3 rounded-lg ${
+                        <div className={`p-3 rounded-lg backdrop-blur-sm ${
                           contact.primary 
-                            ? 'bg-primary/20' 
-                            : 'bg-surface-elevated'
+                            ? 'bg-primary/20 border border-primary/30' 
+                            : 'bg-white/5 border border-white/10'
                         }`}>
                           <IconComponent className={`h-5 w-5 ${
                             contact.primary ? 'text-primary' : 'text-muted-foreground'
                           }`} />
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           <p className="text-sm text-muted-foreground">{contact.label}</p>
                           {contact.href ? (
                             <a
                               href={contact.href}
-                              className={`text-foreground font-medium hover:text-primary transition-colors ${
-                                contact.primary ? 'text-primary' : ''
+                              className={`text-sm sm:text-base font-medium hover:text-primary transition-colors break-all ${
+                                contact.primary ? 'text-primary' : 'text-foreground'
                               }`}
                             >
                               {contact.value}
                             </a>
                           ) : (
-                            <p className="text-foreground font-medium">{contact.value}</p>
+                            <p className="text-sm sm:text-base font-medium break-words">{contact.value}</p>
                           )}
                         </div>
                       </div>
@@ -138,38 +142,47 @@ export function Contact() {
                     Send Email
                   </Button>
                 </div>
-              </Card>
+              </div>
 
               {/* Social Links */}
               <div className="space-y-4">
                 {socialLinks.map((social, index) => {
                   const IconComponent = social.icon;
                   return (
-                    <Card
+                    <div
                       key={social.label}
-                      className="p-6 glass hover:glow-card transition-all duration-300 cursor-pointer group"
+                      className="w-full p-4 sm:p-6 rounded-xl backdrop-blur-xl border border-white/10 transition-all duration-300 cursor-pointer group hover:scale-[1.02]"
+                      style={{
+                        background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01))',
+                        backdropFilter: 'blur(15px)',
+                        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+                      }}
                       onClick={() => window.open(social.href, '_blank')}
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="p-3 rounded-lg bg-surface-elevated group-hover:bg-primary/10 transition-colors">
-                          <IconComponent className={`h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors ${social.color}`} />
+                        <div className="p-3 rounded-lg bg-white/5 border border-white/10 group-hover:bg-primary/10 group-hover:border-primary/20 transition-all duration-300">
+                          <IconComponent className={`h-5 sm:h-6 w-5 sm:w-6 text-muted-foreground group-hover:text-primary transition-colors ${social.color}`} />
                         </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
                             {social.label}
                           </h4>
-                          <p className="text-sm text-muted-foreground">{social.value}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground break-words">{social.value}</p>
                         </div>
                       </div>
-                    </Card>
+                    </div>
                   );
                 })}
               </div>
             </div>
 
             {/* Collaboration Areas */}
-            <div>
-              <Card className="p-8 glass">
+            <div className="w-full">
+              <div className="w-full p-6 sm:p-8 rounded-2xl backdrop-blur-xl border border-white/10" style={{
+                background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+                backdropFilter: 'blur(20px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+              }}>
                 <h3 className="text-2xl font-bold mb-6">
                   Open to Collaborate On
                 </h3>
@@ -215,7 +228,7 @@ export function Contact() {
                     cutting-edge AI research and organizing South India's premier CSR Summit.
                   </p>
                 </div>
-              </Card>
+              </div>
             </div>
           </div>
 

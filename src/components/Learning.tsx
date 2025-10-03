@@ -64,8 +64,8 @@ const certifications = [
 
 export function Learning() {
   return (
-    <section id="learning" className="py-24 px-6 relative rounded-3xl mx-4 my-8">
-      <div className="container mx-auto px-6">
+    <section id="learning" className="py-24 px-4 sm:px-6 relative rounded-3xl mx-2 sm:mx-4 my-8">
+      <div className="w-full mx-auto px-2 sm:px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
@@ -85,14 +85,14 @@ export function Learning() {
               What I'm Learning Now
             </h3>
             
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {currentLearning.map((item, index) => {
                 const IconComponent = item.icon;
                 return (
-                  <Card key={item.title} className="p-6 hover:shadow-lg transition-all duration-500 rounded-3xl backdrop-blur-60" style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                  <div key={item.title} className="w-full p-4 sm:p-6 hover:shadow-lg transition-all duration-500 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10" style={{
+                    background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+                    backdropFilter: 'blur(20px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
                   }}>
                     <div className="flex items-start space-x-4 mb-4">
                       <div className="p-2 rounded-lg bg-primary/10">
@@ -124,7 +124,7 @@ export function Learning() {
                         </div>
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 );
               })}
             </div>
@@ -137,51 +137,53 @@ export function Learning() {
               Research & Exploration
             </h3>
             
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {researchAreas.map((area, index) => {
                 const IconComponent = area.icon;
                 return (
-                  <Card key={area.title} className="p-6 hover:shadow-lg transition-all duration-500 rounded-3xl backdrop-blur-60" style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+                  <div key={area.title} className="w-full p-4 sm:p-6 hover:shadow-lg transition-all duration-500 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10" style={{
+                    background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+                    backdropFilter: 'blur(20px)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
                   }}>
-                    <div className="flex items-start space-x-4">
-                      <div className="p-3 rounded-lg bg-primary/10">
-                        <IconComponent className="h-6 w-6 text-primary" />
+                    <div className="flex items-start space-x-3 sm:space-x-4">
+                      <div className="p-2 sm:p-3 rounded-lg backdrop-blur-sm border border-white/10" style={{
+                        background: 'rgba(255, 255, 255, 0.05)'
+                      }}>
+                        <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-3">
-                          <h4 className="text-xl font-semibold">{area.title}</h4>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between mb-3 flex-wrap gap-2">
+                          <h4 className="text-lg sm:text-xl font-semibold break-words">{area.title}</h4>
                           <Badge
                             variant="secondary"
-                            className={`${
+                            className={`text-xs px-2 py-1 backdrop-blur-sm border border-white/10 flex-shrink-0 ${
                               area.status === "Active Research"
-                                ? "bg-green-500/20 text-green-500"
+                                ? "bg-green-500/20 text-green-500 border-green-500/20"
                                 : area.status === "Experimental"
-                                ? "bg-yellow-500/20 text-yellow-500"
-                                : "bg-blue-500/20 text-blue-500"
+                                ? "bg-yellow-500/20 text-yellow-500 border-yellow-500/20"
+                                : "bg-blue-500/20 text-blue-500 border-blue-500/20"
                             }`}
                           >
                             {area.status}
                           </Badge>
                         </div>
-                        <p className="text-muted-foreground leading-relaxed">
+                        <p className="text-muted-foreground leading-relaxed text-sm sm:text-base break-words">
                           {area.description}
                         </p>
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 );
               })}
             </div>
           </div>
 
           {/* Certifications */}
-          <Card className="p-8 rounded-3xl backdrop-blur-60" style={{
-            background: 'rgba(255, 255, 255, 0.05)',
-            backdropFilter: 'blur(10px)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+          <div className="w-full p-6 sm:p-8 rounded-2xl sm:rounded-3xl backdrop-blur-xl border border-white/10" style={{
+            background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
           }}>
             <div className="flex items-center mb-6">
               <Award className="h-6 w-6 text-primary mr-3" />
@@ -212,7 +214,7 @@ export function Learning() {
                 are essential for meaningful growth. Every project is an opportunity to learn something new."
               </p>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     </section>

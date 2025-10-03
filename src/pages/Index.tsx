@@ -21,7 +21,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-muted-foreground mb-4 md:mb-0">
-              © 2024 Shiva Ganesh Talikota. Built with passion for innovation.
+              © 2025 Shiva Ganesh Talikota. Built with passion for innovation.
             </div>
             <div className="text-sm text-muted-foreground">
               Made with ❤️ using React, TypeScript & Tailwind CSS
