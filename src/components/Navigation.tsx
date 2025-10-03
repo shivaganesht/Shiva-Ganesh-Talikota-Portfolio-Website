@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap, Rocket, Brain, Code2, Sparkles } from "lucide-react";
@@ -95,60 +95,127 @@ export function Navigation() {
   };
 
   const triggerEasterEgg = () => {
-    console.log('🚀 ULTIMATE TECHIE STRESS DESTROYER ACTIVATED! 🚀');
+    console.log('🌧️ Digital Rain Activated! 🌧️');
     setEasterEggActive(true);
     
     // Close mobile menu first
     setIsMobileMenuOpen(false);
-    
-    setTimeout(() => {
       // Store original values
       const originalBodyOverflow = document.body.style.overflow;
       const originalFilter = document.documentElement.style.filter;
       const originalTransition = document.body.style.transition;
       
-      // Create full-screen container
+      // Create full-screen container with enhanced effects
       const overlay = document.createElement('div');
       overlay.id = 'digital-rain-overlay';
       
       overlay.style.cssText = `
         position: fixed !important;
-        top: 0px !important;
-        left: 0px !important;
+        top: 0 !important;
+        left: 0 !important;
         width: 100vw !important;
         height: 100vh !important;
-        z-index: 9999 !important;
-        pointer-events: none !important;
-        background: rgba(0, 0, 0, 0.95) !important;
+        z-index: 99999 !important;
+        pointer-events: auto !important;
+        background: linear-gradient(45deg, rgba(0, 0, 0, 0.98), rgba(0, 20, 0, 0.98)) !important;
         overflow: hidden !important;
+        cursor: pointer !important;
+        animation: matrixPulse 2s ease-in-out infinite alternate !important;
       `;
       
-      // Create canvas
+      // Add breathing animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes matrixPulse {
+          0% { background: linear-gradient(45deg, rgba(0, 0, 0, 0.98), rgba(0, 20, 0, 0.98)); }
+          100% { background: linear-gradient(45deg, rgba(0, 10, 0, 0.98), rgba(0, 30, 0, 0.98)); }
+        }
+        @keyframes scanline {
+          0% { transform: translateY(-100vh); opacity: 0; }
+          50% { opacity: 1; }
+          100% { transform: translateY(100vh); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Create scanline effect for immersion
+      const scanline = document.createElement('div');
+      scanline.style.cssText = `
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 2px !important;
+        background: linear-gradient(90deg, transparent, #00ff00, transparent) !important;
+        animation: scanline 3s linear infinite !important;
+        z-index: 1000 !important;
+      `;
+      
+      // Create main canvas
       const canvas = document.createElement('canvas');
       canvas.style.cssText = `
         position: absolute !important;
-        top: 0px !important;
-        left: 0px !important;
+        top: 0 !important;
+        left: 0 !important;
         width: 100% !important;
         height: 100% !important;
         opacity: 0 !important;
-        transition: opacity 1s ease-in !important;
+        transition: opacity 1.5s ease-in !important;
+        display: block !important;
       `;
       
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      canvas.width = vw;
-      canvas.height = vh;
+      // Force full viewport dimensions
+      const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+      
+      canvas.width = vw * (window.devicePixelRatio || 1);
+      canvas.height = vh * (window.devicePixelRatio || 1);
+      canvas.style.width = vw + 'px';
+      canvas.style.height = vh + 'px';
       
       const ctx = canvas.getContext('2d')!;
       
+      // Scale for high-DPI displays
+      const scale = window.devicePixelRatio || 1;
+      ctx.scale(scale, scale);
+      
+      overlay.appendChild(scanline);
       overlay.appendChild(canvas);
       document.body.appendChild(overlay);
       
-      // Matrix characters
-      const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+      // Enhanced Matrix characters with more variety
+      const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン!@#$%^&*()_+{}[]|\\:";\'<>?,.~/`';
+      const stressMessages = ['BREATHE', 'RELAX', 'FOCUS', 'CALM', 'ZEN', 'PEACE', 'SHIVAGANESHT', 'RESET'];
       
-      // Initialize drops
+      // Create floating stress-relief messages
+      const floatingTexts: Array<{
+        x: number;
+        y: number;
+        text: string;
+        opacity: number;
+        size: number;
+        vx: number;
+        vy: number;
+        pulse: number;
+      }> = [];
+      
+      // Add floating messages periodically
+      setInterval(() => {
+        if (floatingTexts.length < 3) {
+          floatingTexts.push({
+            x: Math.random() * vw,
+            y: vh + 50,
+            text: stressMessages[Math.floor(Math.random() * stressMessages.length)],
+            opacity: 0.8,
+            size: 24 + Math.random() * 16,
+            vx: (Math.random() - 0.5) * 2,
+            vy: -1 - Math.random() * 2,
+            pulse: Math.random() * Math.PI * 2
+          });
+        }
+      }, 2000);
+      
+      // Initialize enhanced drops
       const drops: Array<{
         y: number;
         speed: number;
@@ -157,106 +224,294 @@ export function Navigation() {
         trail: number[];
         color: {r: number, g: number, b: number};
         fontSize: number;
+        glitch: number;
+        wave: number;
       }> = [];
       
-      const cols = Math.floor(vw / 20);
+      const cols = Math.floor(vw / 18);
       
       for (let i = 0; i < cols; i++) {
         drops[i] = {
           y: Math.random() * -1000,
-          speed: Math.random() * 3 + 2,
+          speed: Math.random() * 4 + 1.5,
           chars: [],
           opacity: Math.random() * 0.8 + 0.2,
           trail: [],
-          color: { r: 0, g: 255, b: 0 },
-          fontSize: Math.random() * 6 + 14
+          color: { 
+            r: Math.random() * 50, 
+            g: 200 + Math.random() * 55, 
+            b: Math.random() * 50 
+          },
+          fontSize: Math.random() * 8 + 12,
+          glitch: Math.random() * 0.02,
+          wave: Math.random() * Math.PI * 2
         };
         
-        for (let j = 0; j < 15; j++) {
+        const trailLength = 12 + Math.random() * 8;
+        for (let j = 0; j < trailLength; j++) {
           drops[i].chars[j] = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-          drops[i].trail[j] = 1 - (j * 0.07);
+          drops[i].trail[j] = 1 - (j * 0.08);
         }
       }
       
-      // Animation loop
+      // Enhanced animation loop with stress-busting effects
+      let time = 0;
       const animate = () => {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        time += 0.02;
+        
+        // Create fading background with subtle gradient
+        const gradient = ctx.createLinearGradient(0, 0, 0, vh);
+        gradient.addColorStop(0, 'rgba(0, 0, 0, 0.08)');
+        gradient.addColorStop(0.5, 'rgba(0, 5, 0, 0.06)');
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0.08)');
+        ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, vw, vh);
         
+        // Animate matrix drops with enhanced effects
         drops.forEach((drop, i) => {
           drop.y += drop.speed;
+          drop.wave += 0.1;
+          
+          // Add horizontal wave motion for hypnotic effect
+          const waveOffset = Math.sin(drop.wave + time) * 8;
           
           for (let j = 0; j < drop.chars.length; j++) {
-            const charY = drop.y - j * (drop.fontSize + 2);
+            const charY = drop.y - j * (drop.fontSize + 3);
+            const charX = i * 18 + 5 + waveOffset;
             
             if (charY > -drop.fontSize && charY < vh + drop.fontSize) {
               const trailOpacity = drop.trail[j] * drop.opacity;
               
-              if (Math.random() < 0.01) {
+              // Random character changes for dynamic effect
+              if (Math.random() < drop.glitch) {
                 drop.chars[j] = matrixChars[Math.floor(Math.random() * matrixChars.length)];
               }
               
-              ctx.shadowBlur = j === 0 ? 20 : 10;
-              ctx.shadowColor = `rgba(0, 255, 0, ${trailOpacity})`;
-              ctx.fillStyle = `rgba(0, 255, 0, ${trailOpacity})`;
-              ctx.font = `${drop.fontSize}px 'Courier New', monospace`;
-              ctx.fillText(drop.chars[j], i * 20 + 5, charY);
+              // Enhanced glow effect
+              const glowIntensity = j === 0 ? 25 : 15;
+              ctx.shadowBlur = glowIntensity + Math.sin(time * 2) * 5;
+              ctx.shadowColor = `rgba(${drop.color.r}, ${drop.color.g}, ${drop.color.b}, ${trailOpacity})`;
               
+              // Main character
+              ctx.fillStyle = `rgba(${drop.color.r}, ${drop.color.g}, ${drop.color.b}, ${trailOpacity})`;
+              ctx.font = `${drop.fontSize}px 'Courier New', monospace`;
+              ctx.fillText(drop.chars[j], charX, charY);
+              
+              // Bright leading character with white highlight
               if (j === 0) {
-                ctx.fillStyle = `rgba(255, 255, 255, ${trailOpacity * 0.8})`;
-                ctx.fillText(drop.chars[j], i * 20 + 5, charY);
+                ctx.shadowBlur = 30;
+                ctx.shadowColor = `rgba(255, 255, 255, ${trailOpacity * 0.6})`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${trailOpacity * 0.9})`;
+                ctx.fillText(drop.chars[j], charX, charY);
               }
             }
           }
           
-          if (drop.y > vh + 100) {
-            drop.y = Math.random() * -300 - 100;
-            drop.speed = Math.random() * 3 + 2;
-            drop.fontSize = Math.random() * 6 + 14;
+          // Reset drop when it goes off screen
+          if (drop.y > vh + 200) {
+            drop.y = Math.random() * -500 - 200;
+            drop.speed = Math.random() * 4 + 1.5;
+            drop.fontSize = Math.random() * 8 + 12;
+            drop.color.g = 200 + Math.random() * 55;
+            drop.glitch = Math.random() * 0.02;
           }
         });
+        
+        // Animate floating stress-relief messages
+        floatingTexts.forEach((text, index) => {
+          text.y += text.vy;
+          text.x += text.vx;
+          text.pulse += 0.1;
+          text.opacity -= 0.003;
+          
+          if (text.opacity > 0) {
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = `rgba(0, 255, 150, ${text.opacity})`;
+            ctx.fillStyle = `rgba(0, 255, 150, ${text.opacity})`;
+            ctx.font = `bold ${text.size + Math.sin(text.pulse) * 4}px 'Arial', sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.fillText(text.text, text.x, text.y);
+            ctx.textAlign = 'left';
+          } else {
+            floatingTexts.splice(index, 1);
+          }
+        });
+        
+        // Add breathing prompt in center
+        const breatheOpacity = (Math.sin(time) + 1) * 0.3;
+        ctx.shadowBlur = 30;
+        ctx.shadowColor = `rgba(0, 200, 255, ${breatheOpacity})`;
+        ctx.fillStyle = `rgba(0, 200, 255, ${breatheOpacity})`;
+        ctx.font = 'bold 28px Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('✨ BREATHE DEEPLY ✨', vw / 2, vh / 2);
+        ctx.font = '18px Arial, sans-serif';
+        ctx.fillText('Tap anywhere to exit', vw / 2, vh / 2 + 40);
+        ctx.textAlign = 'left';
       };
       
-      // Start animation
-      requestAnimationFrame(() => {
-        canvas.style.opacity = '1';
+      // Add tap/click to exit functionality with enhanced transitions
+      let isExiting = false;
+      const exitEffect = () => {
+        if (isExiting) return;
+        isExiting = true;
+        
+        // Start smooth fade out with particle burst (no glitch effects)
+        const startFadeOut = () => {
+          // Add final burst effect
+          for (let i = 0; i < 30; i++) {
+            floatingTexts.push({
+              x: vw / 2 + (Math.random() - 0.5) * 200,
+              y: vh / 2 + (Math.random() - 0.5) * 200,
+              text: ['★', '✨', '💫', '⭐', '🌟'][Math.floor(Math.random() * 5)],
+              opacity: 1,
+              size: 15 + Math.random() * 25,
+              vx: (Math.random() - 0.5) * 15,
+              vy: (Math.random() - 0.5) * 15,
+              pulse: Math.random() * Math.PI * 2
+            });
+          }
+          
+          // Add gratitude message
+          floatingTexts.push({
+            x: vw / 2,
+            y: vh / 2 - 50,
+            text: 'THANK YOU FOR RELAXING',
+            opacity: 1,
+            size: 24,
+            vx: 0,
+            vy: -2,
+            pulse: 0
+          });
+          
+          // Smooth canvas fade with elastic easing
+          canvas.style.transition = 'opacity 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 2s ease-out';
+          canvas.style.filter = 'blur(0px) brightness(1)';
+          
+          setTimeout(() => {
+            canvas.style.opacity = '0';
+            canvas.style.filter = 'blur(10px) brightness(0.3)';
+          }, 100);
+          
+          // Phase 3: Background fade with color shift
+          setTimeout(() => {
+            overlay.style.transition = 'background 2.5s cubic-bezier(0.19, 1, 0.22, 1)';
+            overlay.style.background = 'linear-gradient(45deg, rgba(0, 50, 100, 0.8), rgba(50, 0, 100, 0.8))';
+          }, 800);
+          
+          // Phase 4: Final fade to transparent
+          setTimeout(() => {
+            overlay.style.background = 'rgba(0, 0, 0, 0)';
+          }, 1800);
+          
+          // Phase 5: Cleanup with bounce effect
+          setTimeout(() => {
+            overlay.style.transform = 'scale(1.05)';
+            overlay.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s ease-out';
+            
+            setTimeout(() => {
+              overlay.style.opacity = '0';
+              overlay.style.transform = 'scale(0.95)';
+            }, 100);
+            
+            setTimeout(() => {
+              // Final cleanup
+              document.body.style.overflow = originalBodyOverflow;
+              document.body.style.transition = originalTransition;
+              document.documentElement.style.filter = originalFilter;
+              
+              if (overlay.parentNode) {
+                document.body.removeChild(overlay);
+              }
+              
+              if (style.parentNode) {
+                document.head.removeChild(style);
+              }
+              
+              setEasterEggActive(false);
+              console.log('🌧️ Digital Rain Complete! Feeling better? 😌✨');
+            }, 600);
+          }, 2300);
+        };
+        
+        // Start the smooth fade sequence immediately
+        startFadeOut();
+      };
+      
+      // Add click/tap listeners
+      overlay.addEventListener('click', exitEffect);
+      overlay.addEventListener('touchstart', exitEffect);
+      
+      // Prevent scrolling and add keyboard exit
+      const handleKeyPress = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' || e.key === ' ') {
+          e.preventDefault();
+          exitEffect();
+        }
+      };
+      
+      document.addEventListener('keydown', handleKeyPress);
+      
+      // Enhanced start animation with smooth fade-in
+      let introPhase = 0;
+      
+      // Phase 1: Initial fade-in with subtle entrance effect
+      setTimeout(() => {
+        overlay.style.transition = 'background 2s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        overlay.style.background = 'linear-gradient(45deg, rgba(0, 0, 0, 0.98), rgba(0, 20, 0, 0.98))';
         document.body.style.overflow = 'hidden';
-      });
+        
+        // Add welcome message
+        floatingTexts.push({
+          x: vw / 2,
+          y: vh / 2 + 100,
+          text: 'ENTERING ZEN MODE...',
+          opacity: 0.8,
+          size: 18,
+          vx: 0,
+          vy: -2,
+          pulse: 0
+        });
+      }, 100);
+      
+      // Phase 2: Canvas fade-in with elastic easing
+      setTimeout(() => {
+        canvas.style.transition = 'opacity 2.5s cubic-bezier(0.19, 1, 0.22, 1), filter 2s ease-out';
+        canvas.style.opacity = '1';
+        canvas.style.filter = 'blur(0px) brightness(1)';
+      }, 500);
       
       const animationLoop = () => {
         animate();
-        if (document.getElementById('digital-rain-overlay')) {
+        if (document.getElementById('digital-rain-overlay') && !isExiting) {
           requestAnimationFrame(animationLoop);
         }
       };
       
-      setTimeout(animationLoop, 200);
+      setTimeout(animationLoop, 800);
       
-      // Exit after 6 seconds
+      // Auto-exit after 15 seconds for stress relief session
       setTimeout(() => {
-        canvas.style.transition = 'opacity 1s ease-out';
-        canvas.style.opacity = '0';
-        
-        setTimeout(() => {
-          overlay.style.transition = 'background 1s ease-out';
-          overlay.style.background = 'rgba(0, 0, 0, 0)';
-        }, 500);
-        
-        setTimeout(() => {
-          document.body.style.overflow = originalBodyOverflow;
-          document.body.style.transition = originalTransition;
-          document.documentElement.style.filter = originalFilter;
+        if (!isExiting) {
+          console.log('🧘‍♂️ Stress relief session complete! Hope you feel refreshed! ✨');
+          // Add a gentle completion message before exit
+          floatingTexts.push({
+            x: vw / 2,
+            y: vh / 2 - 80,
+            text: 'SESSION COMPLETE',
+            opacity: 1,
+            size: 20,
+            vx: 0,
+            vy: -1,
+            pulse: 0
+          });
           
-          if (overlay.parentNode) {
-            document.body.removeChild(overlay);
-          }
-          
-          setEasterEggActive(false);
-          console.log('🌧️ Digital Rain Complete! 🌧️');
-        }, 2000);
-      }, 6000);
-      
-    }, 300);
+          setTimeout(() => {
+            exitEffect();
+          }, 1500);
+        }
+        document.removeEventListener('keydown', handleKeyPress);
+      }, 15000);
   };
 
   const triggerMatrixMode = () => {
@@ -484,7 +739,20 @@ export function Navigation() {
               </motion.button>
             ))}
             
-            {/* Desktop Easter Egg Button */}
+            {/* Desktop Stress Buster & Matrix Buttons */}
+            <motion.button
+              onClick={triggerEasterEgg}
+              className="relative text-xs font-mono text-emerald-400/80 hover:text-emerald-400 transition-all duration-300 px-3 py-2 rounded-lg hover:bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40"
+              whileHover={{ scale: 1.05, rotate: 2 }}
+              whileTap={{ scale: 0.95 }}
+              title="Stress Relief - Digital Rain Meditation"
+            >
+              <div className="flex items-center gap-1">
+                <Brain className="h-3 w-3" />
+                <span className="text-[10px] font-semibold">ZEN</span>
+              </div>
+            </motion.button>
+            
             <motion.button
               onClick={triggerMatrixMode}
               className="relative text-xs font-mono text-muted-foreground hover:text-primary transition-all duration-300 px-2 py-1 rounded-md hover:bg-primary/5"
@@ -590,23 +858,45 @@ export function Navigation() {
                   </motion.button>
                 ))}
                 
-                {/* Curious Easter Egg Button for Mobile */}
+                {/* Stress Relief Digital Rain Button */}
                 <motion.button
                   onClick={triggerEasterEgg}
-                  className="w-full mt-6 px-4 py-3 rounded-2xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-center font-mono text-sm border-2 border-dashed border-purple-400/30 hover:border-purple-400/60 transition-all duration-300"
+                  className="w-full mt-6 px-4 py-4 rounded-2xl bg-gradient-to-br from-emerald-500/20 via-cyan-500/20 to-blue-500/20 text-center font-mono text-sm border-2 border-dashed border-emerald-400/40 hover:border-emerald-400/70 transition-all duration-500 relative overflow-hidden"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.5 }}
-                  whileHover={{ scale: 1.02, rotate: 1 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.03, rotate: 0.5 }}
+                  whileTap={{ scale: 0.97 }}
                 >
-                  <div className="flex items-center justify-center space-x-2">
-                    <Sparkles className="h-4 w-4 animate-pulse" />
-                    <span className="text-purple-400">?? CURIOUS ??</span>
-                    <Sparkles className="h-4 w-4 animate-pulse" />
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    Dare to click? 😏
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 to-cyan-400/10"
+                    animate={{ 
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{ 
+                      duration: 3, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-center space-x-2 mb-1">
+                      <Brain className="h-4 w-4 text-emerald-400 animate-pulse" />
+                      <span className="text-emerald-400 font-semibold tracking-wider">STRESS BUSTER</span>
+                      <Zap className="h-4 w-4 text-cyan-400 animate-bounce" />
+                    </div>
+                    <div className="text-xs text-emerald-300/80 mb-1">
+                      Digital Rain Meditation
+                    </div>
+                    <div className="text-[10px] text-muted-foreground flex items-center justify-center gap-1">
+                      <span>Tap for zen mode</span>
+                      <motion.span
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                      >
+                        🧘‍♂️
+                      </motion.span>
+                    </div>
                   </div>
                 </motion.button>
               </div>
