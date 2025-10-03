@@ -111,11 +111,11 @@ export function About() {
               whileHover={{ y: -4 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              <h3 className="text-xl font-semibold mb-4 text-primary">👋 Hello from Hyderabad!</h3>
+              <h3 className="text-xl font-semibold mb-4 text-primary">👋 Hello, This is Shiva Ganesh Talikota!</h3>
               <p className="text-muted-foreground leading-relaxed">
                 I'm a passionate entrepreneur and tech innovator dedicated to transforming education through technology. 
                 As the <span className="text-primary font-medium">Founder of matriXO</span>, I'm building revolutionary EdTech solutions 
-                that bridge the gap between academia and industry. I'm also part of the <span className="text-accent font-medium">CSR Summit 2025 Core Team</span> 
+                that bridge the gap between academia and industry. I'm also part of the <span className="text-accent font-medium">CSR Summit 2025 Core Team </span> 
                 and actively contribute to the developer community with <span className="text-primary font-medium">400+ GitHub contributions</span> and open-source projects.
               </p>
             </motion.div>
