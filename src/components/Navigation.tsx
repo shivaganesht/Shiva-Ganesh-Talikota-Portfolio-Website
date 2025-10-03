@@ -28,7 +28,8 @@ export function Navigation() {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          // Improved detection: section is active when it's within the viewport center
+          return rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2;
         }
         return false;
       });

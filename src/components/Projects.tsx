@@ -13,7 +13,8 @@ const projects = [
     icon: Brain,
     category: "EdTech Platform",
     status: "Active Development",
-    highlights: ["1000+ Students", "AI-Powered", "Personalization"]
+    highlights: ["1000+ Students", "AI-Powered", "Personalization"],
+    githubUrl: "https://linkedin.com/company/matrixo" // Private/Organization repo
   },
   {
     title: "Amazon ML Challenge",
@@ -22,7 +23,8 @@ const projects = [
     icon: Code,
     category: "Machine Learning",
     status: "Competition Entry",
-    highlights: ["Computer Vision", "NLP", "Deep Learning"]
+    highlights: ["Computer Vision", "NLP", "Deep Learning"],
+    githubUrl: "https://github.com/shivaganesht/Amazon-ML-Challenge-2024"
   },
   {
     title: "PropChain",
@@ -31,7 +33,8 @@ const projects = [
     icon: Blocks,
     category: "Blockchain",
     status: "Prototype",
-    highlights: ["Smart Contracts", "Tokenization", "DeFi"]
+    highlights: ["Smart Contracts", "Tokenization", "DeFi"],
+    githubUrl: "https://github.com/shivaganesht/PropChain"
   },
   {
     title: "Psypher Bot",
@@ -40,7 +43,8 @@ const projects = [
     icon: Brain,
     category: "AI Healthcare",
     status: "Research",
-    highlights: ["NLP", "Mental Health", "AI Assistant"]
+    highlights: ["NLP", "Mental Health", "AI Assistant"],
+    githubUrl: "https://github.com/shivaganesht/Psypher-An-Emotional-Intelligent-Bot"
   },
   {
     title: "Nutri Advice",
@@ -49,7 +53,8 @@ const projects = [
     icon: Database,
     category: "Health Tech",
     status: "MVP",
-    highlights: ["Health AI", "Mobile App", "Personalization"]
+    highlights: ["Health AI", "Mobile App", "Personalization"],
+    githubUrl: "https://github.com/shivaganesht/Nutri-Advice"
   }
 ];
 
@@ -135,27 +140,16 @@ export function Projects() {
                     )}
                   </div>
                   
-                  <div className="flex gap-2">
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Button
-                        size="sm"
-                        className="glass-button flex-1 text-xs"
-                      >
-                        <Github className="h-3 w-3 mr-1" />
-                        Code
-                      </Button>
-                    </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="glass text-xs"
-                      >
-                        <ExternalLink className="h-3 w-3 mr-1" />
-                        Live
-                      </Button>
-                    </motion.div>
-                  </div>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button
+                      size="sm"
+                      className="glass-button w-full text-xs"
+                      onClick={() => window.open(project.githubUrl, '_blank')}
+                    >
+                      <Github className="h-3 w-3 mr-1" />
+                      View on GitHub
+                    </Button>
+                  </motion.div>
                 </div>
               </div>
             </Card>

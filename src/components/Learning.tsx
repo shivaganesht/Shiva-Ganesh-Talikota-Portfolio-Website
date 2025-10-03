@@ -64,7 +64,7 @@ const certifications = [
 
 export function Learning() {
   return (
-    <section id="learning" className="py-20 relative rounded-3xl mx-4 my-8">
+    <section id="learning" className="py-24 px-6 relative rounded-3xl mx-4 my-8">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
