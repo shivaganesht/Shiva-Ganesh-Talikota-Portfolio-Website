@@ -94,8 +94,8 @@ export function Hero() {
               boxShadow: "0 16px 48px hsl(var(--background) / 0.5), 0 8px 24px hsl(var(--primary) / 0.12)"
             }}
           >
-            AI Engineer & Innovator crafting intelligent solutions for tomorrow's challenges. 
-            Building the future of education through cutting-edge technology.
+            Founder at matriXO • EdTech Entrepreneur • AI/ML Enthusiast • Community Leader
+            <br />Transforming education through innovative technology and building impactful solutions.
           </motion.p>
 
           {/* CTA Buttons with liquid glass effect - UPDATED STYLES */}

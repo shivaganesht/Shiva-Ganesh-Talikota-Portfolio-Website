@@ -6,9 +6,9 @@ import profileImage from "@/assets/shiva-profile.jpg";
 import { LiquidBlob } from "./LiquidBlob";
 
 const skills = [
-  "Python", "TensorFlow", "PyTorch", "JavaScript", "TypeScript", 
-  "React", "Node.js", "Next.js", "AWS", "Azure", "MongoDB", 
-  "Data Structures", "Machine Learning", "Deep Learning"
+  "Python", "JavaScript", "TypeScript", "Java", "React", "Next.js", 
+  "Node.js", "TensorFlow", "PyTorch", "AWS", "Azure", "GCP", 
+  "MongoDB", "PostgreSQL", "Docker", "Blockchain", "Solidity", "OpenCV"
 ];
 
 const languages = [
@@ -20,10 +20,12 @@ const languages = [
 ];
 
 const achievements = [
-  "Successfully launched matriXO, an AI-driven Ed-Tech platform",
-  "AI & ML researcher contributing to groundbreaking projects",
-  "Spearheaded initiatives at TurboHire resulting in 20% efficiency increase",
-  "Over 1800 contributions to Google Crowdsource for ML model enhancement"
+  "Founded and leading matriXO - Revolutionary EdTech platform",
+  "CSR Summit 2025 Core Team Member",
+  "374+ GitHub contributions with active open-source involvement",
+  "Built innovative projects: PropChain, Psypher Bot, Amazon ML Challenge",
+  "Community Leader and Tech Content Creator (@stable.speaks)",
+  "GitHub Pro Member with multiple achievements and trophies"
 ];
 
 export function About() {
@@ -71,7 +73,7 @@ export function About() {
               >
                 <img
                   src={profileImage}
-                  alt="Shiva Ganesh Talikota - Founder & CEO of matriXO"
+                  alt="Shiva Ganesh Talikota - Founder of matriXO, EdTech Entrepreneur"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -111,9 +113,10 @@ export function About() {
             >
               <h3 className="text-xl font-semibold mb-4 text-primary">👋 Hello from Hyderabad!</h3>
               <p className="text-muted-foreground leading-relaxed">
-                I'm a passionate technologist and entrepreneur dedicated to transforming education through AI and machine learning. 
-                As the Founder & CEO of <span className="text-primary font-medium">matriXO</span>, I'm building innovative solutions 
-                that bridge the gap between academic learning and industry requirements.
+                I'm a passionate entrepreneur and tech innovator dedicated to transforming education through technology. 
+                As the <span className="text-primary font-medium">Founder of matriXO</span>, I'm building revolutionary EdTech solutions 
+                that bridge the gap between academia and industry. I'm also part of the <span className="text-accent font-medium">CSR Summit 2025 Core Team</span> 
+                and actively contribute to the developer community with <span className="text-primary font-medium">400+ GitHub contributions</span> and open-source projects.
               </p>
             </motion.div>
 

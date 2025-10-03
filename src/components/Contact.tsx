@@ -17,8 +17,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "shivaganesh9108@gmail.com",
-    href: "mailto:shivaganesh9108@gmail.com",
+    value: "shivaganesht@icloud.com",
+    href: "mailto:shivaganesht@icloud.com",
     primary: true
   },
   {
