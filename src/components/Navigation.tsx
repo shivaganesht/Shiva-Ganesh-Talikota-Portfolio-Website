@@ -183,9 +183,14 @@ export function Navigation() {
       overlay.appendChild(canvas);
       document.body.appendChild(overlay);
       
+<<<<<<< HEAD
       // Enhanced Matrix characters with more variety
       const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン!@#$%^&*()_+{}[]|\\:";\'<>?,.~/`';
       const stressMessages = ['BREATHE', 'RELAX', 'FOCUS', 'CALM', 'ZEN', 'PEACE', 'SHIVAGANESHT', 'RESET'];
+=======
+      // Matrix characters
+      const matrixChars = 'shivaganesht shivaganesht';
+>>>>>>> 42c345182cd14861492ff0f5926dc4dcda371030
       
       // Create floating stress-relief messages
       const floatingTexts: Array<{
