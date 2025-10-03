@@ -69,10 +69,10 @@ export function Projects() {
         <LiquidBlob size="md" position="bottom-right" color="primary" className="opacity-40" />
         <LiquidBlob size="sm" position="center" color="secondary" className="opacity-35" />
       </div>
-      
+      <div className="text-center mb-16">
       <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 relative z-10">
         <motion.h2 
-          className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground"
+          className="text-3xl md:text-4xl font-bold mb-16 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -80,6 +80,7 @@ export function Projects() {
         >
           Featured Projects
         </motion.h2>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {projects.map((project, index) => (
