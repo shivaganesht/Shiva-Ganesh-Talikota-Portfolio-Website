@@ -569,19 +569,18 @@ export function Navigation() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             onClick={() => {
-              // 🌈 EPIC COLOR STORM EASTER EGG! 🌈
-              console.log('🌈 Color Storm Activated! 🌈');
+              // ✨ SMOOTH AURORA EASTER EGG! ✨
+              console.log('✨ Aurora Mode Activated! ✨');
               
               const colors = [
-                '0 100% 60%',    // Red
-                '30 100% 60%',   // Orange  
-                '60 100% 60%',   // Yellow
-                '120 100% 60%',  // Green
-                '180 100% 60%',  // Cyan
-                '240 100% 60%',  // Blue
-                '270 100% 60%',  // Purple
-                '300 100% 60%',  // Magenta
-                '330 100% 60%'   // Pink
+                { primary: '220 100% 70%', accent: '280 100% 75%' },  // Blue to Purple
+                { primary: '280 100% 75%', accent: '320 100% 70%' },  // Purple to Pink
+                { primary: '320 100% 70%', accent: '0 100% 75%' },    // Pink to Red
+                { primary: '0 100% 75%', accent: '30 100% 70%' },     // Red to Orange
+                { primary: '30 100% 70%', accent: '60 100% 75%' },    // Orange to Yellow
+                { primary: '60 100% 75%', accent: '120 100% 70%' },   // Yellow to Green
+                { primary: '120 100% 70%', accent: '180 100% 75%' },  // Green to Cyan
+                { primary: '180 100% 75%', accent: '220 100% 70%' }   // Cyan to Blue
               ];
               
               // Store original values
@@ -589,115 +588,249 @@ export function Navigation() {
               const originalAccent = getComputedStyle(document.documentElement).getPropertyValue('--accent');
               
               let colorIndex = 0;
-              let pulseIndex = 0;
+              let animationFrame = 0;
               
-              // Rapid color cycling
-              const colorInterval = setInterval(() => {
-                const currentColor = colors[colorIndex % colors.length];
-                const nextColor = colors[(colorIndex + 1) % colors.length];
-                
-                document.documentElement.style.setProperty('--primary', currentColor);
-                document.documentElement.style.setProperty('--accent', nextColor);
-                document.documentElement.style.setProperty('--primary-glow', currentColor);
-                
-                colorIndex++;
-              }, 150);
-              
-              // Pulsing body animation
-              const pulseInterval = setInterval(() => {
-                const scale = 1 + Math.sin(pulseIndex * 0.3) * 0.02;
-                const hue = (pulseIndex * 10) % 360;
-                
-                document.body.style.transform = `scale(${scale}) rotate(${Math.sin(pulseIndex * 0.1)}deg)`;
-                document.body.style.filter = `hue-rotate(${hue}deg) saturate(1.2) brightness(1.1)`;
-                document.body.style.transition = 'all 0.1s ease-out';
-                
-                pulseIndex++;
-              }, 100);
-              
-              // Explosive particle effect
+              // Enhanced gradient noise canvas effect
               const canvas = document.createElement('canvas');
               canvas.style.position = 'fixed';
               canvas.style.top = '0';
               canvas.style.left = '0';
               canvas.style.width = '100%';
               canvas.style.height = '100%';
-              canvas.style.zIndex = '9999';
+              canvas.style.zIndex = '1'; // Behind navbar (navbar is z-50)
               canvas.style.pointerEvents = 'none';
-              canvas.width = window.innerWidth;
-              canvas.height = window.innerHeight;
+              canvas.style.mixBlendMode = 'screen'; // Better blend mode that doesn't interfere with backdrop-blur
+              canvas.style.opacity = '0.3';
+              canvas.width = window.innerWidth * 0.5; // Reduce for performance
+              canvas.height = window.innerHeight * 0.5;
+              canvas.style.imageRendering = 'pixelated';
               document.body.appendChild(canvas);
               
               const ctx = canvas.getContext('2d')!;
-              const particles: Array<{x: number, y: number, vx: number, vy: number, hue: number, life: number}> = [];
               
-              // Create particles from center
-              for (let i = 0; i < 100; i++) {
+              // Perlin-like noise function
+              const noise = (x: number, y: number, time: number) => {
+                return (Math.sin(x * 0.01 + time) * Math.cos(y * 0.01 + time * 0.8) + 
+                        Math.sin(x * 0.02 + time * 1.3) * Math.cos(y * 0.02 + time * 0.6) +
+                        Math.sin(x * 0.005 + time * 0.4) * Math.cos(y * 0.005 + time)) * 0.5;
+              };
+              
+              // Smooth HSL color interpolation helper
+              const interpolateHSL = (color1: string, color2: string, t: number): string => {
+                const [h1, s1, l1] = color1.split(' ').map(v => parseFloat(v.replace('%', '')));
+                const [h2, s2, l2] = color2.split(' ').map(v => parseFloat(v.replace('%', '')));
+                
+                // Handle hue wrapping for shortest path
+                let hDiff = h2 - h1;
+                if (hDiff > 180) hDiff -= 360;
+                if (hDiff < -180) hDiff += 360;
+                
+                const h = (h1 + hDiff * t) % 360;
+                const s = s1 + (s2 - s1) * t;
+                const l = l1 + (l2 - l1) * t;
+                
+                return `${h} ${s}% ${l}%`;
+              };
+              
+              // Ultra-smooth color transitions with proper interpolation
+              const colorTransition = () => {
+                const progress = (animationFrame / 480) % 1; // 8 seconds at 60fps
+                const eased = 0.5 - 0.5 * Math.cos(progress * Math.PI * 2); // Smooth sine easing
+                
+                const totalProgress = eased * colors.length;
+                const currentIndex = Math.floor(totalProgress);
+                const nextIndex = (currentIndex + 1) % colors.length;
+                const localProgress = totalProgress - currentIndex;
+                
+                // Smooth easing for local progress
+                const smoothProgress = 0.5 - 0.5 * Math.cos(localProgress * Math.PI);
+                
+                const currentColorSet = colors[currentIndex];
+                const nextColorSet = colors[nextIndex];
+                
+                // Interpolate primary and accent colors smoothly
+                const interpolatedPrimary = interpolateHSL(currentColorSet.primary, nextColorSet.primary, smoothProgress);
+                const interpolatedAccent = interpolateHSL(currentColorSet.accent, nextColorSet.accent, smoothProgress);
+                
+                // Apply smooth color transitions with CSS transitions
+                document.documentElement.style.transition = 'all 0.3s ease-out';
+                document.documentElement.style.setProperty('--primary', interpolatedPrimary);
+                document.documentElement.style.setProperty('--accent', interpolatedAccent);
+                document.documentElement.style.setProperty('--primary-glow', interpolatedPrimary);
+              };
+              
+              // Enhanced floating gradient orbs with noise
+              const particles: Array<{
+                x: number, y: number, vx: number, vy: number, 
+                hue: number, size: number, opacity: number,
+                noiseOffsetX: number, noiseOffsetY: number
+              }> = [];
+              
+              for (let i = 0; i < 25; i++) {
                 particles.push({
-                  x: canvas.width / 2,
-                  y: canvas.height / 2,
-                  vx: (Math.random() - 0.5) * 20,
-                  vy: (Math.random() - 0.5) * 20,
+                  x: Math.random() * canvas.width,
+                  y: Math.random() * canvas.height,
+                  vx: (Math.random() - 0.5) * 0.8, // Slower particle velocity
+                  vy: (Math.random() - 0.5) * 0.8,
                   hue: Math.random() * 360,
-                  life: 1.0
+                  size: Math.random() * 30 + 20,
+                  opacity: Math.random() * 0.3 + 0.1,
+                  noiseOffsetX: Math.random() * 1000,
+                  noiseOffsetY: Math.random() * 1000
                 });
               }
               
-              const animateParticles = () => {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+              const animateAurora = () => {
+                const time = animationFrame * 0.02; // Slower animation timing
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Create layered gradient noise background
+                const imageData = ctx.createImageData(canvas.width, canvas.height);
+                const data = imageData.data;
+                
+                for (let x = 0; x < canvas.width; x += 2) {
+                  for (let y = 0; y < canvas.height; y += 2) {
+                    const noiseValue = noise(x, y, time);
+                    const hue = (220 + noiseValue * 100 + time * 20) % 360;
+                    const saturation = 70 + noiseValue * 30;
+                    const lightness = 50 + noiseValue * 20;
+                    const alpha = Math.max(0, Math.min(1, (noiseValue + 1) * 0.15));
+                    
+                    // Convert HSL to RGB for better performance
+                    const rgb = hslToRgb(hue / 360, saturation / 100, lightness / 100);
+                    
+                    const index = (y * canvas.width + x) * 4;
+                    data[index] = rgb[0];     // Red
+                    data[index + 1] = rgb[1]; // Green  
+                    data[index + 2] = rgb[2]; // Blue
+                    data[index + 3] = alpha * 255; // Alpha
+                  }
+                }
+                
+                ctx.putImageData(imageData, 0, 0);
+                
+                // Multi-layered gradients with noise influence
+                const gradient1 = ctx.createRadialGradient(
+                  canvas.width * (0.3 + Math.sin(time * 0.8) * 0.2), 
+                  canvas.height * (0.4 + Math.cos(time * 0.6) * 0.2), 0,
+                  canvas.width * 0.5, canvas.height * 0.5, canvas.width
+                );
+                gradient1.addColorStop(0, `hsla(${240 + Math.sin(time) * 60}, 80%, 60%, 0.3)`);
+                gradient1.addColorStop(0.5, `hsla(${300 + Math.cos(time * 1.2) * 40}, 75%, 65%, 0.2)`);
+                gradient1.addColorStop(1, 'transparent');
+                
+                ctx.globalCompositeOperation = 'screen';
+                ctx.fillStyle = gradient1;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                particles.forEach((particle, index) => {
-                  particle.x += particle.vx;
-                  particle.y += particle.vy;
-                  particle.life -= 0.02;
-                  particle.hue += 2;
+                // Second gradient layer
+                const gradient2 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient2.addColorStop(0, `hsla(${180 + Math.sin(time * 1.5) * 80}, 85%, 70%, 0.25)`);
+                gradient2.addColorStop(0.5, `hsla(${320 + Math.cos(time * 0.9) * 60}, 80%, 65%, 0.2)`);
+                gradient2.addColorStop(1, `hsla(${60 + Math.sin(time * 1.3) * 40}, 90%, 75%, 0.15)`);
+                
+                ctx.fillStyle = gradient2;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.globalCompositeOperation = 'source-over';
+                
+                // Enhanced floating particles with noise distortion
+                particles.forEach((particle) => {
+                  // Apply noise-based distortion
+                  const noiseX = noise(particle.x + particle.noiseOffsetX, particle.y, time * 0.5) * 3;
+                  const noiseY = noise(particle.x, particle.y + particle.noiseOffsetY, time * 0.7) * 3;
                   
-                  if (particle.life > 0) {
-                    ctx.beginPath();
-                    ctx.arc(particle.x, particle.y, particle.life * 8, 0, Math.PI * 2);
-                    ctx.fillStyle = `hsla(${particle.hue}, 100%, 60%, ${particle.life})`;
-                    ctx.fill();
-                  } else {
-                    particles.splice(index, 1);
-                  }
+                  particle.x += particle.vx * 0.5 + noiseX * 0.3; // Slower movement
+                  particle.y += particle.vy * 0.5 + noiseY * 0.3;
+                  particle.hue += 0.5; // Slower color rotation
+                  
+                  // Smooth wrapping with fade
+                  if (particle.x < -particle.size) particle.x = canvas.width + particle.size;
+                  if (particle.x > canvas.width + particle.size) particle.x = -particle.size;
+                  if (particle.y < -particle.size) particle.y = canvas.height + particle.size;
+                  if (particle.y > canvas.height + particle.size) particle.y = -particle.size;
+                  
+                  // Multi-layered glowing orbs
+                  const orbGradient = ctx.createRadialGradient(
+                    particle.x, particle.y, 0,
+                    particle.x, particle.y, particle.size * 1.5
+                  );
+                  orbGradient.addColorStop(0, `hsla(${particle.hue}, 90%, 80%, ${particle.opacity * 0.8})`);
+                  orbGradient.addColorStop(0.3, `hsla(${particle.hue + 30}, 85%, 75%, ${particle.opacity * 0.5})`);
+                  orbGradient.addColorStop(0.7, `hsla(${particle.hue + 60}, 80%, 70%, ${particle.opacity * 0.2})`);
+                  orbGradient.addColorStop(1, 'transparent');
+                  
+                  ctx.fillStyle = orbGradient;
+                  ctx.beginPath();
+                  ctx.arc(particle.x, particle.y, particle.size * 1.5, 0, Math.PI * 2);
+                  ctx.fill();
                 });
                 
-                if (particles.length > 0) {
-                  requestAnimationFrame(animateParticles);
+                colorTransition();
+                animationFrame++;
+                
+                if (animationFrame < 480) { // Exactly 8 seconds at 60fps
+                  requestAnimationFrame(animateAurora);
                 }
               };
               
-              animateParticles();
-              
-              // Cleanup after 4 seconds
-              setTimeout(() => {
-                clearInterval(colorInterval);
-                clearInterval(pulseInterval);
+              // HSL to RGB conversion helper
+              const hslToRgb = (h: number, s: number, l: number): [number, number, number] => {
+                const c = (1 - Math.abs(2 * l - 1)) * s;
+                const x = c * (1 - Math.abs(((h * 6) % 2) - 1));
+                const m = l - c / 2;
+                let r = 0, g = 0, b = 0;
                 
-                // Restore original values
+                if (h < 1/6) { r = c; g = x; b = 0; }
+                else if (h < 2/6) { r = x; g = c; b = 0; }
+                else if (h < 3/6) { r = 0; g = c; b = x; }
+                else if (h < 4/6) { r = 0; g = x; b = c; }
+                else if (h < 5/6) { r = x; g = 0; b = c; }
+                else { r = c; g = 0; b = x; }
+                
+                return [Math.round((r + m) * 255), Math.round((g + m) * 255), Math.round((b + m) * 255)];
+              };
+              
+              // Gentle body enhancement
+              document.body.style.transition = 'all 1.5s ease-in-out';
+              document.body.style.boxShadow = '0 0 80px hsla(var(--primary) / 0.2), 0 0 40px hsla(var(--accent) / 0.1)';
+              document.body.style.backdropFilter = 'blur(0.5px)';
+              
+              animateAurora();
+              
+              // Precise 8-second cleanup with smooth transition back to original
+              setTimeout(() => {
+                // Start fade out at 7 seconds (1 second fade)
+                canvas.style.transition = 'opacity 1s ease-out';
+                canvas.style.opacity = '0';
+                
+                // Begin restoration of body effects
+                document.body.style.transition = 'all 1s ease-out';
+                document.body.style.boxShadow = 'none';
+                document.body.style.backdropFilter = 'none';
+                
+                // Start color restoration with smooth transition
+                document.documentElement.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
                 document.documentElement.style.setProperty('--primary', originalPrimary);
                 document.documentElement.style.setProperty('--accent', originalAccent);
                 document.documentElement.style.removeProperty('--primary-glow');
                 
-                // Smooth restoration
-                document.body.style.transition = 'all 1s ease-out';
-                document.body.style.transform = 'scale(1) rotate(0deg)';
-                document.body.style.filter = 'none';
-                
-                // Remove canvas
-                if (canvas.parentNode) {
-                  document.body.removeChild(canvas);
-                }
-                
+                // Final cleanup after fade completes
                 setTimeout(() => {
+                  if (canvas.parentNode) {
+                    document.body.removeChild(canvas);
+                  }
+                  // Remove all style overrides to return to original state
                   document.body.style.removeProperty('transition');
-                  document.body.style.removeProperty('transform');
-                  document.body.style.removeProperty('filter');
+                  document.body.style.removeProperty('box-shadow');
+                  document.body.style.removeProperty('backdrop-filter');
+                  document.documentElement.style.removeProperty('transition');
+                  
+                  console.log('✨ Gradient Aurora Complete - Original State Restored! ✨');
                 }, 1000);
                 
-                console.log('🌈 Color Storm Complete! 🌈');
-              }, 4000);
+              }, 7000); // Start cleanup at 7 seconds for perfect 8-second total
             }}
           >
             <span className="text-primary animate-pulse">&lt;</span>
