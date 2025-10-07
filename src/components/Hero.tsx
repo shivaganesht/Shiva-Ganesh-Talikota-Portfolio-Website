@@ -83,7 +83,7 @@ export function Hero() {
 
           {/* Subtitle with role */}
           <motion.p 
-            className="text-xl md:text-1xl text-muted-foreground font-medium mb-8 max-w-1xl mx-auto p-5 rounded-3xl backdrop-blur-60"
+            className="text-1xl md:text-1xl text-muted-foreground font-medium mb-8 max-w-1xl mx-auto p-5 rounded-3xl backdrop-blur-60"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}

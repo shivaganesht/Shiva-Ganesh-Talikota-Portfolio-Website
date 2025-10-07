@@ -600,7 +600,7 @@ export function Navigation() {
               canvas.style.zIndex = '1'; // Behind navbar (navbar is z-50)
               canvas.style.pointerEvents = 'none';
               canvas.style.mixBlendMode = 'screen'; // Better blend mode that doesn't interfere with backdrop-blur
-              canvas.style.opacity = '0.3';
+              canvas.style.opacity = '0.31w';
               canvas.width = window.innerWidth * 0.5; // Reduce for performance
               canvas.height = window.innerHeight * 0.5;
               canvas.style.imageRendering = 'pixelated';
