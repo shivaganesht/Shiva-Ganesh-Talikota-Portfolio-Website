@@ -190,21 +190,21 @@ const NotionEmbed = () => {
                 <defs>
                   <mask id="spotlight-mask">
                     <rect width="100%" height="100%" fill="white" />
-                    {/* Spotlight circle for duplicate button (step 1) */}
+                    {/* Spotlight circle for duplicate button (step 1) - positioned over Notion toolbar */}
                     {tourStep === 1 && (
                       <circle
-                        cx="90%"
-                        cy="80px"
-                        r="120"
+                        cx="50%"
+                        cy={isFullscreen ? "60px" : "140px"}
+                        r="100"
                         fill="black"
                       />
                     )}
-                    {/* Spotlight circle for fullscreen button (step 3) */}
+                    {/* Spotlight circle for fullscreen button (step 3) - over header */}
                     {tourStep === 3 && (
                       <circle
-                        cx="92%"
+                        cx="85%"
                         cy="60px"
-                        r="80"
+                        r="70"
                         fill="black"
                       />
                     )}
@@ -221,20 +221,19 @@ const NotionEmbed = () => {
               {/* Animated ring around spotlight for duplicate button */}
               {tourStep === 1 && (
                 <motion.div
-                  className="absolute"
+                  className="absolute left-1/2 -translate-x-1/2"
                   style={{
-                    left: 'calc(90% - 120px)',
-                    top: 'calc(80px - 120px)',
-                    width: '240px',
-                    height: '240px',
+                    top: isFullscreen ? 'calc(60px - 100px)' : 'calc(140px - 100px)',
+                    width: '200px',
+                    height: '200px',
                     borderRadius: '50%',
-                    border: '3px solid',
+                    border: '4px solid',
                     borderColor: 'hsl(var(--primary))',
-                    boxShadow: '0 0 30px hsl(var(--primary) / 0.5), inset 0 0 30px hsl(var(--primary) / 0.3)',
+                    boxShadow: '0 0 40px hsl(var(--primary) / 0.8), inset 0 0 40px hsl(var(--primary) / 0.4)',
                   }}
                   animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.6, 1, 0.6],
+                    scale: [1, 1.15, 1],
+                    opacity: [0.7, 1, 0.7],
                   }}
                   transition={{
                     duration: 2,
@@ -249,18 +248,18 @@ const NotionEmbed = () => {
                 <motion.div
                   className="absolute"
                   style={{
-                    left: 'calc(92% - 80px)',
-                    top: 'calc(60px - 80px)',
-                    width: '160px',
-                    height: '160px',
+                    left: 'calc(85% - 70px)',
+                    top: 'calc(60px - 70px)',
+                    width: '140px',
+                    height: '140px',
                     borderRadius: '50%',
-                    border: '3px solid',
+                    border: '4px solid',
                     borderColor: 'hsl(var(--primary))',
-                    boxShadow: '0 0 30px hsl(var(--primary) / 0.5), inset 0 0 30px hsl(var(--primary) / 0.3)',
+                    boxShadow: '0 0 40px hsl(var(--primary) / 0.8), inset 0 0 40px hsl(var(--primary) / 0.4)',
                   }}
                   animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.6, 1, 0.6],
+                    scale: [1, 1.15, 1],
+                    opacity: [0.7, 1, 0.7],
                   }}
                   transition={{
                     duration: 2,
@@ -380,32 +379,34 @@ const NotionEmbed = () => {
               {/* Arrow Pointer for specific highlights */}
               {tourSteps[tourStep].highlight === 'duplicate-button' && (
                 <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="fixed top-16 right-[15%] z-[10000]"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="fixed left-1/2 -translate-x-1/2 z-[10000]"
+                  style={{ top: isFullscreen ? '0px' : '80px' }}
                 >
                   <div className="relative">
                     <motion.div
                       animate={{ y: [0, 10, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                      className="flex flex-col items-center"
                     >
-                      <svg width="60" height="60" viewBox="0 0 60 60" className="text-primary drop-shadow-lg">
+                      <motion.div
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="whitespace-nowrap text-primary font-bold text-xl bg-black/90 px-6 py-3 rounded-xl border-2 border-primary shadow-2xl mb-2"
+                      >
+                        Click here! 👇
+                      </motion.div>
+                      <svg width="60" height="60" viewBox="0 0 60 60" className="text-primary drop-shadow-2xl">
                         <path
                           d="M30 10 L30 40 M30 40 L20 30 M30 40 L40 30"
                           stroke="currentColor"
-                          strokeWidth="4"
+                          strokeWidth="5"
                           fill="none"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
                       </svg>
-                    </motion.div>
-                    <motion.div
-                      animate={{ opacity: [1, 0.5, 1] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                      className="absolute -top-10 -left-16 whitespace-nowrap text-primary font-bold text-lg bg-black/80 px-4 py-2 rounded-lg border-2 border-primary shadow-xl"
-                    >
-                      Click here! 👆
                     </motion.div>
                   </div>
                 </motion.div>
@@ -414,18 +415,27 @@ const NotionEmbed = () => {
               {/* Arrow Pointer for fullscreen button */}
               {tourSteps[tourStep].highlight === 'fullscreen-button' && (
                 <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="fixed top-16 right-[10%] z-[10000]"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="fixed z-[10000]"
+                  style={{ left: 'calc(85% - 50px)', top: '0px' }}
                 >
                   <div className="relative">
                     <motion.div
                       animate={{ y: [0, 10, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                      className="flex flex-col items-center"
                     >
-                      <svg width="60" height="60" viewBox="0 0 60 60" className="text-primary drop-shadow-lg">
+                      <motion.div
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="whitespace-nowrap text-primary font-bold text-lg bg-black/90 px-5 py-2 rounded-xl border-2 border-primary shadow-2xl mb-2"
+                      >
+                        Try this! 👇
+                      </motion.div>
+                      <svg width="50" height="50" viewBox="0 0 50 50" className="text-primary drop-shadow-2xl">
                         <path
-                          d="M30 10 L30 40 M30 40 L20 30 M30 40 L40 30"
+                          d="M25 5 L25 35 M25 35 L15 25 M25 35 L35 25"
                           stroke="currentColor"
                           strokeWidth="4"
                           fill="none"
@@ -433,13 +443,6 @@ const NotionEmbed = () => {
                           strokeLinejoin="round"
                         />
                       </svg>
-                    </motion.div>
-                    <motion.div
-                      animate={{ opacity: [1, 0.5, 1] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                      className="absolute -top-10 -left-20 whitespace-nowrap text-primary font-bold text-lg bg-black/80 px-4 py-2 rounded-lg border-2 border-primary shadow-xl"
-                    >
-                      Try this! 🖥️
                     </motion.div>
                   </div>
                 </motion.div>
