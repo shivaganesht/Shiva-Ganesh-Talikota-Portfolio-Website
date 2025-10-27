@@ -186,28 +186,32 @@ const NotionEmbed = () => {
               className="fixed inset-0 z-[9998]"
               style={{ pointerEvents: 'none' }}
             >
-              <svg width="100%" height="100%" className="absolute inset-0">
+                <svg width="100%" height="100%" className="absolute inset-0">
                 <defs>
                   <mask id="spotlight-mask">
-                    <rect width="100%" height="100%" fill="white" />
-                    {/* Spotlight circle for duplicate button (step 1) - positioned over Notion toolbar */}
-                    {tourStep === 1 && (
-                      <circle
-                        cx="50%"
-                        cy={isFullscreen ? "60px" : "140px"}
-                        r="100"
-                        fill="black"
-                      />
-                    )}
-                    {/* Spotlight circle for fullscreen button (step 3) - over header */}
-                    {tourStep === 3 && (
-                      <circle
-                        cx="85%"
-                        cy="60px"
-                        r="70"
-                        fill="black"
-                      />
-                    )}
+                  <rect width="100%" height="100%" fill="white" />
+                  {/* Spotlight rectangle for duplicate button (step 1) - positioned over Notion toolbar */}
+                  {tourStep === 1 && (
+                    <rect
+                    x="calc(88% - 30px)"
+                    y={isFullscreen ? "25px" : "72px"}
+                    width="60"
+                    height="60"
+                    rx="30"
+                    fill="black"
+                    />
+                  )}
+                  {/* Spotlight rectangle for fullscreen button (step 3) - over header */}
+                  {tourStep === 3 && (
+                    <rect
+                    x="calc(100% - 215px)"
+                    y="10px"
+                    width="130"
+                    height="45"
+                    rx="16"
+                    fill="black"
+                    />
+                  )}
                   </mask>
                 </defs>
                 <rect
@@ -216,59 +220,61 @@ const NotionEmbed = () => {
                   fill="rgba(0, 0, 0, 0.85)"
                   mask="url(#spotlight-mask)"
                 />
-              </svg>
+                </svg>
               
-              {/* Animated ring around spotlight for duplicate button */}
-              {tourStep === 1 && (
-                <motion.div
-                  className="absolute left-1/2 -translate-x-1/2"
-                  style={{
-                    top: isFullscreen ? 'calc(60px - 100px)' : 'calc(140px - 100px)',
-                    width: '200px',
-                    height: '200px',
-                    borderRadius: '50%',
-                    border: '4px solid',
-                    borderColor: 'hsl(var(--primary))',
-                    boxShadow: '0 0 40px hsl(var(--primary) / 0.8), inset 0 0 40px hsl(var(--primary) / 0.4)',
-                  }}
-                  animate={{
-                    scale: [1, 1.15, 1],
-                    opacity: [0.7, 1, 0.7],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                />
-              )}
-              
-              {/* Animated ring around spotlight for fullscreen button */}
-              {tourStep === 3 && (
+                {/* Animated ring around spotlight for duplicate button */}
+                {tourStep === 1 && (
                 <motion.div
                   className="absolute"
                   style={{
-                    left: 'calc(85% - 70px)',
-                    top: 'calc(60px - 70px)',
-                    width: '140px',
-                    height: '140px',
-                    borderRadius: '50%',
-                    border: '4px solid',
-                    borderColor: 'hsl(var(--primary))',
-                    boxShadow: '0 0 40px hsl(var(--primary) / 0.8), inset 0 0 40px hsl(var(--primary) / 0.4)',
+                  left: 'calc(88% - 30px)',
+                  top: `calc(${isFullscreen ? '55px' : '102px'} - 30px)`,
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  border: '4px solid',
+                  borderColor: 'hsl(var(--primary))',
+                  boxShadow: '0 0 40px hsl(var(--primary) / 0.8), inset 0 0 40px hsl(var(--primary) / 0.4)',
                   }}
                   animate={{
-                    scale: [1, 1.15, 1],
-                    opacity: [0.7, 1, 0.7],
+                  scale: [1, 1.15, 1],
+                  opacity: [0.7, 1, 0.7],
                   }}
                   transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
                   }}
                 />
-              )}
-            </motion.div>
+                )}
+                
+                {/* Animated ring around spotlight for fullscreen button */}
+                {tourStep === 3 && (
+                <motion.div
+                  className="absolute"
+                  style={{
+                  right: '5.3rem',
+                  top: '0.62rem',
+                  width: '130px',
+                  height: '45px',
+                  borderRadius: '1rem',
+                  border: '3px solid',
+                  borderColor: 'hsl(var(--primary))',
+                  boxShadow: '0 0 40px hsl(var(--primary) / 0.8), inset 0 0 40px hsl(var(--primary) / 0.4)',
+                  }}
+                  animate={{
+                  scale: [1, 1.05, 1],
+                  opacity: [0.7, 1, 0.7],
+                  }}
+                  transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                  }}
+                />
+                )}
+              </motion.div>
+
 
             {/* Tour Card */}
             <motion.div
@@ -376,77 +382,83 @@ const NotionEmbed = () => {
                 </div>
               </div>
 
-              {/* Arrow Pointer for specific highlights */}
-              {tourSteps[tourStep].highlight === 'duplicate-button' && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="fixed left-1/2 -translate-x-1/2 z-[10000]"
-                  style={{ top: isFullscreen ? '0px' : '80px' }}
-                >
-                  <div className="relative">
+                  {/* Arrow Pointer for duplicate button */}
+                  {tourSteps[tourStep].highlight === 'duplicate-button' && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="fixed z-[10000]"
+                    style={{ 
+                    left: 'calc(86% - 200px)', 
+                    top: isFullscreen ? '40px' : '79px' 
+                    }}
+                  >
+                    <div className="relative">
                     <motion.div
-                      animate={{ y: [0, 10, 0] }}
+                      animate={{ x: [0, 10, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                      className="flex flex-col items-center"
+                      className="flex flex-row items-center gap-2"
                     >
                       <motion.div
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="whitespace-nowrap text-primary font-bold text-xl bg-black/90 px-6 py-3 rounded-xl border-2 border-primary shadow-2xl mb-2"
+                      animate={{ opacity: [1, 0.5, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="whitespace-nowrap text-primary font-bold text-lg bg-black/90 px-5 py-2 rounded-xl border-2 border-primary shadow-2xl"
                       >
-                        Click here! 👇
+                      Click here! 
                       </motion.div>
-                      <svg width="60" height="60" viewBox="0 0 60 60" className="text-primary drop-shadow-2xl">
-                        <path
-                          d="M30 10 L30 40 M30 40 L20 30 M30 40 L40 30"
-                          stroke="currentColor"
-                          strokeWidth="5"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
+                      <svg width="50" height="30" viewBox="0 0 50 30" className="text-primary drop-shadow-2xl">
+                      <path
+                        d="M5 15 L35 15 M35 15 L25 5 M35 15 L25 25"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                       </svg>
                     </motion.div>
-                  </div>
-                </motion.div>
-              )}
-              
-              {/* Arrow Pointer for fullscreen button */}
-              {tourSteps[tourStep].highlight === 'fullscreen-button' && (
+                    </div>
+                  </motion.div>
+                  )}
+                
+                {/* Arrow Pointer for fullscreen button */}
+                {tourSteps[tourStep].highlight === 'fullscreen-button' && (
                 <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
                   className="fixed z-[10000]"
-                  style={{ left: 'calc(85% - 50px)', top: '0px' }}
+                  style={{ 
+                  left: 'calc(87% - 200px)', 
+                  top: '8px' 
+                  }}
                 >
                   <div className="relative">
+                  <motion.div
+                    animate={{ x: [0, 10, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    className="flex flex-row items-center gap-2"
+                  >
                     <motion.div
-                      animate={{ y: [0, 10, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                      className="flex flex-col items-center"
+                    animate={{ opacity: [1, 0.5, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="whitespace-nowrap text-primary font-bold text-lg bg-black/90 px-5 py-2 rounded-xl border-2 border-primary shadow-2xl"
                     >
-                      <motion.div
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="whitespace-nowrap text-primary font-bold text-lg bg-black/90 px-5 py-2 rounded-xl border-2 border-primary shadow-2xl mb-2"
-                      >
-                        Try this! 👇
-                      </motion.div>
-                      <svg width="50" height="50" viewBox="0 0 50 50" className="text-primary drop-shadow-2xl">
-                        <path
-                          d="M25 5 L25 35 M25 35 L15 25 M25 35 L35 25"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
+                    Try this! 
                     </motion.div>
+                    <svg width="50" height="30" viewBox="0 0 50 30" className="text-primary drop-shadow-2xl">
+                    <path
+                      d="M5 15 L35 15 M35 15 L25 5 M35 15 L25 25"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    </svg>
+                  </motion.div>
                   </div>
                 </motion.div>
-              )}
+                )}
             </motion.div>
           </>
         )}
